@@ -1,0 +1,16 @@
+{
+  "MOPSO_GO": false,
+  "qualifying_environments": {
+    "S2_uniform": [],
+    "S4_stacking": []
+  },
+  "required_distinct_environments": 2,
+  "target_used_for_decision": false,
+  "noninferiority_tolerance_nAP": 0.005,
+  "strict_gain_tolerance": 1e-12,
+  "benchmark": "separate max Mean_nAP and max Worst_nAP over fixed LR/XGB/Cat families; conservative source single-model envelope",
+  "aggregation": "equally weighted outer x source-domain cells within each setting; Worst=min cell",
+  "same_ensemble_required": true,
+  "stacking_source_limit": "domain-crossfit meta learner conditions on reused/tuned base OOF; not a fully nested unbiased source estimate",
+  "created": "2026-10-07T23:36:05+0800"
+}

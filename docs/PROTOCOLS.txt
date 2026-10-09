@@ -1,0 +1,523 @@
+Frozen protocols in their original chronology. Statements of authorization in old protocols describe their historical run, not commands for the present reader.
+
+===========================================================================
+E2_day28_formulation_v1.0/PROTOCOL.txt
+===========================================================================
+E2 Day-28 landmark formulation experiment v1.0
+
+范围：仅E2。E1保持只读，另存为E1_day28_internal_baseline_v1.0.zip并逐文件记录SHA256。
+数据：直接读取E1的oulad_day28_features.csv；保持全部27421行、16个特征、原有训练/验证/测试学生划分和顺序。
+Day28含Day0..28，共29天。E1已排除预测日之前退出及无法确认在读状态的记录，本轮不重新纳入任何人。
+种子20261007；线程数6；软件依赖、预处理、搜索空间沿用E1。
+
+E2A Merged：Success=0；Fail或FutureWithdrawn=1。
+五模型LR、RF、XGBoost、LightGBM、CatBoost，每个30次Optuna TPE，验证集AP选参数。
+阈值在验证集最大化F1；同E1，最终模型只在train拟合、不合并validation。
+报告AP、AUROC、Recall、Precision、F1、MCC、BalancedAccuracy、Brier、固定0.5阈值F1。
+
+E2B Flat：类别顺序固定[0=Success,1=Fail,2=FutureWithdrawal]。
+五模型各30次Optuna，验证集三个one-vs-rest AP的算术平均（MacroAP）最大化。
+选择MacroAP是对E1的AP目标的多分类扩展；附件未指定三分类调参目标，执行前固定此定义。
+LR使用lbfgs原生multinomial，RF原生多分类，XGBoost multi:softprob，LightGBM multiclass，CatBoost MultiClass。
+不改变搜索空间、不增加SMOTE、校准或测试集阈值调整。
+三分类硬预测为概率argmax；所有类别概率列经model.classes_校验/排列。
+
+E2C Dual：读取E1现有二分类模型，不重新训练、不重新调参。
+主双路径：E1按各自验证集AP选出的CatBoost(W)+LightGBM(F|非退课)。
+在包括Withdrawn的完整验证集/测试集上同时推断两个模型。
+P(S)=(1-pW)(1-pF)，P(F)=(1-pW)pF，P(W)=pW。
+三个概率之和为1；硬预测统一使用argmax，不使用E1两个二分类F1阈值进行路由。
+报告原始pW、条件性pF、三个联合概率、预测类别、真实标签和row_id。
+附加5组同模型家族的Dual：LR+LR、RF+RF、XGB+XGB、LGBM+LGBM、CatBoost+CatBoost，不新增模型训练。
+
+选型与公平性：
+主Flat按验证集MacroAP选模型；主Dual使用已冻结的E1分支选择，不按三分类测试结果重新选型。
+因此主比较是两个预先规定的建模/选择流程的比较，不是完全排除了基础学习器影响的纯formulation因果效应。
+同模型家族的Flat-vs-Dual作为辅助控制；搜索目标仍分别为Flat MacroAP与Dual两个分支各自AP。
+本轮不为Dual组合额外搜索；Flat一个模型与Dual两个模型的计算开销不相等，应透明报告。
+E1测试结果此前已被查看，本轮属于沿用冻结holdout的后续研究，不能称全新的盲测外部验证。任何观察后的新决策不得回写本轮主协议。
+
+三分类指标：
+AP_Success、AP_Fail、AP_Withdrawal为完整5485行测试集上的one-vs-rest average_precision_score。
+AP_Fail不是E1仅在非Withdrawn人群计算的conditional failure AP，不能将两者直接比较。
+MacroAP为上述三类AP平均；MacroAUROC为三类OVR AUROC平均。
+MacroF1为labels=[0,1,2]的平均F1，zero_division=0；另报告Accuracy、BalancedAccuracy、MCC、LogLoss。
+MulticlassBrier=mean_i sum_k (p_ik-y_ik)^2，范围0..2，未除以3也未除以2，越小越好。
+混淆矩阵行是真实类别，列是预测类别；同时报告原始计数、行归一化和各类precision/recall/F1。
+
+配对不确定性：
+主比较4项：AP_Withdrawal、AP_Fail、MacroF1、MulticlassBrier。
+按测试集id_student聚类，有放回抽取4955名学生；同一学生的所有选课记录携同重采样。
+每次Flat和Dual使用完全同一组权重，记录Delta=Dual-Flat；主比较2000次，5组同模型家族各1000次。
+95% percentile CI；固定已拟合模型、不重训、不重新选择模型；不包含训练和调参不确定性。
+AP/F1的正Delta有利于Dual；Brier的负Delta有利于Dual。
+区间是未做多重比较校正的点态区间；不据此宣称全局显著优势，也不以独立CI是否重叠代替配对分析。
+
+核查：
+E1全文件哈希前后一致；特征矩阵SHA256、split及测试row_id与E1完全一致。
+训练/验证/测试学生交集为0；每种任务5模型且每模型30个成功trial。
+Flat和Dual所有概率有限、非负且行和1，类别映射正确。
+重新推断E1分支应复现E1保存的测试预测；所有三分类指标用保存预测独立复算。
+加入合成概率组合测试、完美预测Brier=0、均匀概率Brier=2/3、相同模型配对差值=0检查。
+
+不在本轮执行：其他landmark、跨课程/跨时间、UCI模型、SHAP、MOPSO。
+附件中的文献数值、解释性推测和后续方案属于背景；未在本轮作为已验证事实。
+
+复现（Python3.12，requirements-lock.txt）：
+python run_e2.py --baseline ../experiment1_day28 --output . --trials 30
+python audit_e2.py --baseline ../experiment1_day28 --output .
+python build_report.py
+相同代码和输入允许中断续跑；变更协议须使用新输出目录。e1_reference.py为E1训练辅助函数的原样副本。
+
+===========================================================================
+E3_oulad_multihorizon_v1.0/PROTOCOL.txt
+===========================================================================
+E3_oulad_multihorizon_v1.0：执行前固定的实验协议
+
+1. 范围与冻结
+E1、E2只读；E2另存为E2_day28_formulation_v1.0。原文件逐一SHA256校验。
+主分析Day14/28/56/84；仅Day14/56/84训练两个二分类分支、五模型、每模型30次Optuna，共900次新trial。
+Day28使用E1冻结的特征、预测、阈值、模型与选型结果，不重训、不重新调参。
+E3新增的nAP和Top-k在E3目录计算，绝不回写E1/E2。
+不在本轮训练Merged/Flat或执行E4、UCI、MOPSO、SHAP。
+
+2. 统一学生划分
+master_student_split.csv涵盖原OULAD全部唯一id_student。
+E1中存在的学生保留原train/validation/test assignment；检查E2完全一致。
+其余学生先按数值ID升序，再用numpy.default_rng(20261007)打乱；前floor(0.6N)分train、随后floor(0.2N)分validation，其余test。
+新增分配不使用标签；保存后冻结。所有landmark均查同一映射，不重新划分。
+
+3. 风险队列与特征
+直接使用E1 active_cohort与features_from_logs函数的原样副本，只传入不同cutoff。
+观测窗口[0,t]包含两端，Day14/28/56/84分别15/29/57/85天。
+依原顺序排除注册日期不明、注册晚于t、退出日期<=t、Withdrawn但退出日期不明、其他退出日期/标签不一致记录。
+全部16个特征和零行为规则完全相同；日志在聚合前按0<=date<=t截断，并排除早于注册的日志。
+recent7为t-6..t，previous7为t-13..t-7；不改变Day0处理。
+标识符、enrolment_key、split、标签、退出日期均不是预测特征。
+enrolment_key=code_module|code_presentation|id_student仅用于跨时点对齐；row_id仍为各时点局部编号。
+
+4. 训练前门禁
+先产生全部队列审计、特征、master split；执行独立审计后才允许stage=train。
+要求：E1/E2学生映射完全不变；跨所有时点学生组交集为空；所有有效日志最大日期<=t；已退出者不进入风险队列；E1特征函数源文件哈希相同。
+额外核查：各时点合成未来日志不影响特征；原始日志随机抽查及零行为/晚注册边界；Day28原特征文件按字节原样复制。
+
+5. 模型和评价
+W：未来Withdrawn vs其他；F：最终非Withdrawn中Fail vsPass/Distinction。
+LR/RF/XGBoost/LightGBM/CatBoost、随机种子20261007、搜索空间、预处理均沿用E1。
+每个模型30次TPE，验证集AP选参数；每时点每任务按验证集AP选择模型，不按测试集选择。
+最终模型只在train拟合；验证集F1最大化阈值；不合并validation重训、不SMOTE、不后校准。
+AP=average_precision_score；nAP=(AP-test_prevalence)/(1-test_prevalence)，允许负值，不裁剪。
+nAP只作相对于当前阳性率的描述性归一化，不能完全消除prevalence依赖或case-mix变化。
+报告AUROC、Brier、F1、Precision、Recall、MCC、BalancedAccuracy、固定0.5阈值F1。
+主分析每模型AP 95%CI为1000次测试学生聚类bootstrap，固定模型；Day28复用原AP CI。
+完整队列N/Pos/Prevalence与测试集N/Pos/Prevalence分别列出，避免不同分母混用。
+
+6. 预先固定的容量排序指标
+k=5%、10%、20%；选取ceil(k*N)条，概率降序，同分按enrolment_key字典序打破平局，不使用标签。
+Precision@k=命中阳性数/实际选择数；Recall@k=命中阳性数/全部阳性数；Lift@k=Precision@k/该评价集阳性率。
+主指标以学生—课程—批次记录为单位，不能把这些名额直接称为去重学生人数。
+对Withdrawal另报告去重学生口径：各学生取该landmark合格选课记录中最大预测概率，标签为任何记录未来退课；同分按数值id_student升序。
+该学生层分析也只表示风险排序，不代表干预能产生因果效果。F分支主分析仅在其条件性人群中计算Top-k。
+
+7. Stable-cohort敏感性分析
+R84中可能有Day14之后才注册的人，不能让其在Day14使用未来注册信息。
+因此实际共同队列C=R14∩R28∩R56∩R84（按选课键），并核对等于R84且date_registration<=14；单列晚注册等排除数。
+每个时点使用完全相同C测试记录，F再过滤Withdrawn。使用主分析已保存预测/模型，零新增训练或调参。
+同时报告全部五个相同家族轨迹，主表仍用每时点原验证集选择，不在共同测试队列重新选模型。
+该分析只固定评价队列，训练队列和最优参数仍随时点改变，不能声称完全隔离纯信息增益。
+使用未来Day84状态筛选属于回顾性条件化，必须作为敏感性分析而不是前瞻主结果。
+主分析跨时点delta为描述性点差，不能忽略评价人群变化。稳定测试队列的相邻时点AP/nAP差值另用1000次配对学生聚类bootstrap，固定已经选择的模型；这是未作多重比较校正的点态区间。
+
+8. 交付
+master_student_split.csv；day14/day56/day84_cohort_audit.csv与features.csv；Day28复制文件与复用证明。
+cohort_summary.csv、split_summary.csv、40行全模型结果、两任务4点主表、AP/nAP/AUROC/Top-k轨迹、相邻窗口增益。
+共同队列成员、各时点共同测试结果与配对差值；全部新模型、参数、trial、预测、审计、环境和输入SHA256。
+不依据结果更改k、队列、split或主模型选择规则。叙述描述数据，不把不同任务AP直接解释成机制的因果证据。
+
+===========================================================================
+E4A_C_source_only_calibration_v1.0/PROTOCOL.txt
+===========================================================================
+E4A-C v1.0: source-only logistic recalibration of frozen selected LR models
+Scope: 14 outer module/task pairs. No base learner is retrained or selected.
+Use only E4A's saved best-trial six-domain OOF predictions to fit each calibrator.
+Outer test labels, predictions and prevalence never enter calibrator fitting.
+All 14 calibrators are saved and hash-locked before any calibrated test scoring.
+
+METHOD FROZEN BEFORE EXECUTION
+z=logit(clip(raw_probability,1e-12,1-1e-12)); p_cal=expit(a+b*z).
+Fit a,b by unpenalized binomial maximum likelihood on the pooled source OOF
+rows, one equal weight per enrolment. This is standard sample-weighted
+calibration, not a six-domain-equal calibration objective. No class balancing.
+Use scipy L-BFGS-B with analytic gradient, b>=1e-8, to preserve increasing rank.
+No method comparison, target prior correction, isotonic or threshold tuning.
+Save optimization convergence and score-gradient checks. A lower-bound slope
+or numeric rank changes must be disclosed rather than silently ignored.
+Apply each saved calibrator unchanged to its frozen outer-test raw predictions.
+Source-prior constant reference uses original outer-training event prevalence.
+
+AUDIT
+The OOF row keys/labels must equal the saved outer training membership, consist
+of exactly six source modules, and share zero students with the entire outer
+held-out cohort. Each OOF domain is checked against its frozen inner validation
+membership; each corresponding inner training list must be student-disjoint.
+All E4A file hashes are recorded and checked after the experiment.
+
+EVALUATION
+AP, nAP, AUROC, Brier, log loss; raw/calibrated/source-prior reference.
+Calibration intercept and slope are the jointly estimated coefficients from
+a diagnostic unpenalized logistic regression of TEST labels on logit(TEST p).
+Those test diagnostic coefficients are never used to transform predictions,
+select models, fit the source calibrator, or set thresholds. A separate CITL
+intercept is estimated with slope fixed at 1. Perfect values: intercept 0,
+slope 1. Diagnostic slopes are unconstrained. Constant reference has no slope.
+Report domain-equal mean, population SD and worst Brier/log loss.
+Per-domain paired 1000 student-cluster bootstrap CIs for calibrated-minus-raw
+Brier and log-loss differences; fixed trained models/calibrators, seed20261007.
+Negative difference means improvement. These are exploratory, unadjusted CIs;
+do not treat the seven outer domains as independent samples for a macro CI.
+
+RELIABILITY
+Ten fixed equal-width probability bins over [0,1], including 1 in final bin.
+Each task figure has seven module panels and an equal-domain-weight pooled
+panel. Save nonempty bin N, mean probability and observed event proportion.
+Empty bins are not plotted. Source fit and full-source refit score distributions
+can differ; source-only calibration need not transport under domain shift.
+
+E4A source-only hyperparameter selection is reused. OOF predictions were also
+used to select those parameters, so calibration fitting has selection reuse;
+outer test evaluation remains held out. No nested calibration-selection claim.
+This is E4A-C plus E4B work only. E4B-SLR and later stages are not run here.
+
+===========================================================================
+E4A_day28_student_disjoint_LOMO_v1.0/PROTOCOL.txt
+===========================================================================
+E4A Day28 student-disjoint nested leave-one-module-out v1.0
+Frozen before training; only E4A is authorized in this run.
+
+DATA AND TASKS
+Byte-identical E1 Day28 feature table, 27,421 enrolments, 16 frozen predictors.
+No new raw aggregation, selection or transformation. Feature availability audit
+and cohort exclusions inherit E1. Existing split column is not a predictor and
+is ignored: LOMO uses new domain-based splits, not the E1/E3 internal split.
+W: Withdrawn versus all other outcomes. F: Fail versus Pass/Distinction,
+excluding Withdrawn. Outcome is eventual status after Day28, not a fixed future
+prediction window. Missing withdrawal dates and inconsistent records excluded
+by the frozen E1 cohort. Source feature/code hashes must match.
+
+OUTER SPLITS
+Hold out all active Day28 enrolments in one of AAA,BBB,CCC,DDD,EEE,FFF,GGG.
+Purge every held-out student from all other modules before task filtering.
+Thus W and F share the same conservative student exclusion set, including
+students whose held-out record would be excluded from the F task.
+All 7 outer splits and all 42 domain pairs are saved before fitting.
+
+INNER SPLITS
+For each outer fold, each of the six remaining modules is validation once.
+Purge all validation-module students from the other five modules, again using
+the active cohort before task filtering, after outer-student exclusion.
+Outer held-out data never enter preprocessing, hyperparameter or family
+selection, threshold selection, or fitting. StandardScaler for LR fits only
+the corresponding training subset. All other model/search-space settings
+are byte-identical to frozen E1 via e1_reference.py.
+
+SEARCH AND SELECTION
+Five families in tie order LR, RF, XGBoost, LightGBM, CatBoost; 15 fresh Optuna
+TPE trials per family/task/outer fold, seed 20261007, no pruning or early stop.
+Each trial fits all six inner domains. Maximize arithmetic mean of six APs
+(average_precision_score), not pooled AP. Save each domain AP/nAP, mean AP,
+population SD AP (ddof=0), minimum AP, mean nAP. First trial wins exact ties.
+No E1 best hyperparameters are reused. All searches are independent.
+Select family solely by best inner mean AP; exact ties use listed family order.
+Freeze all 14 family choices before evaluating any outer test predictions.
+
+THRESHOLDS
+For the chosen hyperparameters of each family, retain six out-of-domain
+prediction vectors produced during its best trial. Choose the threshold
+maximizing unweighted mean F1 across the six inner validation modules over
+the exact union of their probabilities plus 0 and 1. Predict positive at p>=t.
+Lowest threshold wins exact ties. Fit each final model on all admissible
+outer-source rows and transfer this inner-derived threshold unchanged.
+Threshold-dependent metrics are secondary; AP/nAP/AUROC are primary.
+
+REPORTING
+Report all 70 family/module/task evaluations plus 14 validation-selected rows.
+For every test module report N, positives, prevalence, AP, nAP, AUROC, Brier,
+threshold metrics and enrolment-level P/R/Lift at ceil(5%,10%,20% of N).
+Ties in ranking use lexical module|presentation|student enrolment key.
+nAP=(AP-prevalence)/(1-prevalence); this is a descriptive baseline correction,
+not prevalence-invariant performance or a causal adjustment.
+Primary aggregate: seven modules weighted equally, population SD (ddof=0)
+and minimum across modules. AP and nAP minima can occur in different modules.
+Per-module AP 95% percentile CIs use 1000 student-cluster bootstrap draws,
+seed 20261007, all enrolments of a sampled student travel together.
+No bootstrap CI for a mean assuming independent modules: outer test modules
+can share students, although each individual fold is strictly disjoint.
+Optional secondary W capacity deduplicates students with max probability
+and any-positive label; numeric student IDs break ties.
+
+GENERALIZATION GAP AND INTERPRETATION
+Gap=E1 internal metric - mean LOMO metric, separately for AP, nAP and AUROC.
+Compare each family with itself; compare the validation-selected pipeline
+with E1's validation-selected family. This is a descriptive protocol contrast:
+training sizes, test populations, prevalence, tuning budget and validation
+design differ. It is not a paired causal estimate of pure domain shift.
+Model/module matrices, ranks and pairwise reversals are diagnostic only.
+Never report an oracle selected on each module's test results as the pipeline.
+Observed rank reversals motivate further testing but do not prove ensemble
+improvement. No optimizer, Day56, temporal holdout or UCI experiments here.
+E1-E3 remain byte-identical and are hash-checked before and after E4A.
+
+COMPUTE AND RECOVERY
+70 independent studies x 15 trials x 6 fits = 6300 inner fits; 70 final fits.
+Three independent processes at most; each model uses E1's six CPU threads.
+No GPU, network service or new dependency needed. SQLite database per study.
+Completed study artifacts are skipped on rerun. If a study was interrupted,
+move its incomplete directory to a work backup and rerun that whole study;
+do not resume TPE with a reset sampler and silently change the trial sequence.
+
+===========================================================================
+E4B_day56_LOMO_secondary_v1.0/PROTOCOL.txt
+===========================================================================
+E4B Day56 unseen-module horizon replication v1.0
+Primary: Failure | Completion, Day56-minus-Day28 nAP per unseen module.
+Secondary: future Withdrawal, with explicit risk-set depletion sensitivity.
+
+FEATURES AND COHORT
+Rebuild all 16 E1 feature definitions from the raw OULAD ZIP, using dates
+0..56 inclusive and excluding logs preceding registration. No new features.
+Apply the same active-cohort exclusions at Day56: registration missing or >56,
+unregistration<=56, unknown withdrawal date, inconsistent outcome/exit date.
+Preserve zero-activity records. Verify rebuilt numeric features, labels and
+enrolment keys against frozen E3 Day56, without using E3 train/val/test splits.
+
+NESTED LOMO
+Exactly E4A's outer and inner student-purge rules, now on the Day56 risk set.
+Outer held-out module and all its students are excluded from source training.
+Inner validation rotates over all six remaining modules; remove each validation
+module's students from its inner training modules. Purge before task filtering.
+Audit 14 outer task folds and 84 inner task folds before training.
+
+MODELS AND TUNING
+LR, XGBoost, CatBoost; 15 fresh Optuna trials each, seed20261007.
+42 studies, 630 complete trials, 3780 inner fits, 42 final fits.
+Byte-identical E1 model constructors and search spaces, including original
+LR C range [1e-4,100]. No expanded-C sensitivity in this primary experiment.
+Use a byte-identical copy of E4A's worker to fit each selected family, retain
+its best-trial OOF predictions and select its threshold by six-domain mean F1.
+Objective: unweighted mean AP over six source validation modules.
+Select family using only best inner mean AP, tie order LR/XGBoost/CatBoost.
+Lock all 14 family choices before any outer-test scoring. No calibration is
+applied in E4B primary; compare raw scores at both horizons, preserving E4A.
+Up to three worker processes, six model threads each. Completed jobs reusable;
+interrupted jobs must restart all 15 trials to preserve the seeded TPE sequence.
+
+COMPARISONS
+Per-family results for the three common families and validation-selected
+pipelines. Day28 uses frozen E4A predictions and selection; verify its original
+five-family selection is unchanged when restricted to these three families.
+Report N, positives, prevalence, AP/nAP/AUROC/Brier and P/R/Lift@5/10/20.
+Equal-module mean, population SD(ddof=0), minimum and per-module deltas.
+Do not select a model based on held-out scores. Count positive Failure delta
+nAP modules; present all seven values rather than a pooled-enrolment result.
+
+COMMON-COHORT SENSITIVITY
+For each module/task, intersect Day28/Day56 active enrolment keys and compare
+their frozen predictions on exactly those rows. Labels must match. Evaluation
+only, no refitting; retrospective conditioning on remaining eligible at Day56.
+Base training populations and possibly selected families differ by horizon;
+this is not a causal isolation of accumulated signal.
+Report all three families and the validation-selected pipeline. For the latter,
+1000 paired student-cluster bootstrap replicates, seed20261007, give per-module
+95% intervals for delta AP/nAP/AUROC/Brier. All repeated enrolments of a sampled
+student travel together. These are conditional, exploratory, unadjusted CIs;
+no independence assumption or macro CI across modules sharing students.
+Dynamic-risk-set deltas are descriptive, not paired same-enrolment comparisons.
+
+SCOPE AND FREEZE
+E1-E4A files remain byte-identical. E4A-C is separate, with no feedback into
+model selection. Do not run E4B-SLR, E4T, UCI, ensemble optimization or SHAP.
+
+===========================================================================
+E4T_OULAD_temporal_generalization_v1.0/PROTOCOL.txt
+===========================================================================
+E4T preregistered local protocol v1.0
+Primary: 2013B+2013J source -> 2014B+2014J target, Day28 withdrawal and failure|completion.
+Secondary: Day56 failure ONLY, under E4T-B_day56_failure_secondary.
+Frozen E1/E4A 16 features and landmark definitions, copied from previously audited features.
+Remove from source ALL students present in original 2014 studentInfo, before landmark/task filtering. This conservative blacklist includes target-year ineligible records. Identity only, never target outcomes, drives purging. Source inner validation: leave each of nine 2013 module/presentation domains out; purge that validation domain's students from remaining source domains BEFORE task filtering.
+Models LR, XGBoost, CatBoost; unchanged E1 parameter ranges, deterministic seed 20261007, 6 CPU threads/model. Day28 20 trials/model/task; Day56 15/model. Objective equal-domain mean AP (SD and worst saved). Family chosen by source mean AP; exact tie follows LR,XGBoost,CatBoost order. Threshold maximizes equal-domain mean F1 across the best trial's source OOF predictions, lower threshold ties; no target selection or refitting. All nine final models and family selections locked before any target scoring. Final fit uses all purged eligible source rows.
+Primary target metrics pool all target enrolments; per-presentation and equal-domain summaries are descriptive. Ranking: AP,nAP,AUROC,Lift@5/10/20; probability quality: Brier,LogLoss with source-prior baseline; transferred F1 secondary.
+Matched-module sensitivity restricts target to source/target intersection AAA,BBB,DDD,EEE,FFF,GGG. All source modules are shared, so identical source training and tuning, no extra fit; exclude target-only CCC at evaluation. This does not causally isolate calendar and composition effects.
+Day28->56 failure: dynamic and common enrolment-key comparisons for three fixed families and independently source-selected pipelines, all/matched scopes. Common-cohort paired 1000 student-cluster bootstrap, seed fixed, percentile 95% CI; conditional on fitted models, no retraining or multiplicity correction. Dynamic comparison not paired when populations differ.
+E4B stays frozen; SLR gate checks Failure LR C<2e-4 in >=5/7 folds; observed 0/7, not run. Existing E4A-C already completed and preserved. No MOPSO/SHAP/new family/calibration.
+
+===========================================================================
+E5A_UCI_information_horizons_v1.0/PROTOCOL.txt
+===========================================================================
+UCI protocol v1.0: positive=Dropout, negative=Graduate; exclude 794 Enrolled, retain 3630 rows. Original CSV row index is record identity; no true student ID or dropout timestamps released. No missing data; preserve coded unknown levels as categories, no invented imputation. Never use Target/row ID as predictors.
+H0-strict: 21 pre-entry/enrollment/background predictors, excluding Debtor, Tuition fees up to date, Scholarship holder (administrative snapshot timing unresolved). Retain three macroeconomic variables on the originating dataset descriptor's enrollment-time statement, with explicit limitation that release vintages and individual timestamps cannot be verified. H1 adds six semester1 variables; H2 adds six semester2. H0-expanded alone restores three ambiguous administrative flags as timing sensitivity. These are retrospective information sets, NOT prospective risk-set landmark cohorts; early dropouts cannot be excluded at semester landmarks because timestamps are unavailable. UCI target is dropout vs graduate and is NOT OULAD Failure|Completion.
+Official metadata https://archive.ics.uci.edu/dataset/697/predict+students+dropout+and+academic+success ; originating descriptor https://doi.org/10.3390/data7110146 (Table1 and enrollment-time description). CSV current version has 36 predictors; paper older version says35 attributes, do not override actual CSV.
+All models share train-only OneHotEncoder(handle_unknown=ignore) for categorical codes, numeric passthrough; LR then StandardScaler for all encoded columns. XGBoost/CatBoost see the same encoding (no native categorical optimization). Entire preprocessing fit separately within each source fold; unseen target levels all-zero for that feature. Course retained consistently as a categorical H0/H1 predictor; in LOCO held-out course maps to unknown.
+LR/XGBoost/CatBoost only, unchanged E1 search ranges; Optuna TPE seed20261007, sequential trials, 6 threads/model. AP is average_precision_score, nAP=(AP-prevalence)/(1-prevalence), AUROC,Brier,LogLoss,Lift@5/10/20. Lower threshold breaks max-F1 ties; family tie order LR,XGBoost,CatBoost. Family/parameters/threshold lock before target scoring. No probability calibration or ensemble. Bootstrap is paired student-record resampling 1000 replicates with fixed seed, percentile95%; conditional on fitted models, excludes degenerate class resamples, no multiplicity correction.
+E5A: frozen stratified60/20/20 train/validation/test shared across all four information sets. Source validation is a single fixed holdout; 30 trials/family/information set (360 total). Final models fit ONLY 60% training, preserving honest validation threshold transfer (no refit on validation). Select family by validation AP separately per information set. Paired H0-strict->H1 and H1->H2 for fixed families and validation-selected pipelines; H0-strict->expanded sensitivity. Same test students, no time-based partition possible.
+
+===========================================================================
+E5B_UCI_LOCO_v1.0/PROTOCOL.txt
+===========================================================================
+UCI protocol v1.0: positive=Dropout, negative=Graduate; exclude 794 Enrolled, retain 3630 rows. Original CSV row index is record identity; no true student ID or dropout timestamps released. No missing data; preserve coded unknown levels as categories, no invented imputation. Never use Target/row ID as predictors.
+H0-strict: 21 pre-entry/enrollment/background predictors, excluding Debtor, Tuition fees up to date, Scholarship holder (administrative snapshot timing unresolved). Retain three macroeconomic variables on the originating dataset descriptor's enrollment-time statement, with explicit limitation that release vintages and individual timestamps cannot be verified. H1 adds six semester1 variables; H2 adds six semester2. H0-expanded alone restores three ambiguous administrative flags as timing sensitivity. These are retrospective information sets, NOT prospective risk-set landmark cohorts; early dropouts cannot be excluded at semester landmarks because timestamps are unavailable. UCI target is dropout vs graduate and is NOT OULAD Failure|Completion.
+Official metadata https://archive.ics.uci.edu/dataset/697/predict+students+dropout+and+academic+success ; originating descriptor https://doi.org/10.3390/data7110146 (Table1 and enrollment-time description). CSV current version has 36 predictors; paper older version says35 attributes, do not override actual CSV.
+All models share train-only OneHotEncoder(handle_unknown=ignore) for categorical codes, numeric passthrough; LR then StandardScaler for all encoded columns. XGBoost/CatBoost see the same encoding (no native categorical optimization). Entire preprocessing fit separately within each source fold; unseen target levels all-zero for that feature. Course retained consistently as a categorical H0/H1 predictor; in LOCO held-out course maps to unknown.
+LR/XGBoost/CatBoost only, unchanged E1 search ranges; Optuna TPE seed20261007, sequential trials, 6 threads/model. AP is average_precision_score, nAP=(AP-prevalence)/(1-prevalence), AUROC,Brier,LogLoss,Lift@5/10/20. Lower threshold breaks max-F1 ties; family tie order LR,XGBoost,CatBoost. Family/parameters/threshold lock before target scoring. No probability calibration or ensemble. Bootstrap is paired student-record resampling 1000 replicates with fixed seed, percentile95%; conditional on fitted models, excludes degenerate class resamples, no multiplicity correction.
+E5B: H1 only, all17 courses as outer test, equal-course summary primary, pooled predictions descriptive. Nested leave-one-source-course-out (16 inner folds), 15 trials/model/outer-course =765 trials and12240 inner fits +51 final fits. This source-only budget is a prespecified implementation choice matching E4A/E4B; user did not specify E5B budget. Optimize equal-course mean AP, record SD/worst. All17 courses have both classes in binary cohort; course33 has only9 records (8dropouts/1graduate), retained and explicitly flagged unstable. Exact source-OOF threshold maximizes equal-course mean F1. Final fit all16 source courses. All51 final models and17 source family selections lock before any held-out-course scoring. Report mean/SD/min nAP, mean rank and first-place counts; course33 exclusion is a declared descriptive small-domain sensitivity, not retuning. No bootstrap of courses pretending independent populations.
+
+===========================================================================
+E6A_simple_ensemble_gate_v1.0/PROTOCOL.txt
+===========================================================================
+E6A source-only simple ensemble gate v1.0, frozen before new evaluation.
+Human clarified: MOPSO trigger uses SOURCE-domain validation, never target results.
+Three deployment environments: A OULAD Day28 LOMO (withdrawal + failure); B OULAD 2013->2014 Day28 failure; C UCI H1 LOCO. A's two outcomes are reported separately but count as at most ONE environment.
+Reuse frozen best-trial base OOF probabilities and base family selections. No new base fitting or Optuna. Three families LR/XGBoost/CatBoost. UCI CatBoost used common one-hot preprocessing in E5; do not label it native categorical-aware in these results.
+S1 original source-selected family; S2 arithmetic mean of3 probabilities; S3 mean ofXGB/Cat; S4 logistic regression on3 untransformed probabilities, C=1, intercept, no scaling/class weighting, max_iter4000, seed20261007. Meta cross-fitting leaves one source domain out and excludes its students from meta training. Final meta fitted all source OOF rows. These OOF values were produced by tuned base learners: meta cross-fitting conditions on reused base OOF and is NOT fully nested base-model retraining. Source metrics are exploratory model-development diagnostics, not unbiased generalization estimates. Target never affects meta fitting, model/weight selection, gate or threshold.
+Source domains: A six modules per outer fold; B nine module-presentations; C sixteen courses per outer fold. Summary within a setting equally weights all outer-fold x source-domain cells (source records repeat across outer folds); Mean, population SD, Worst are across these cells. No independence or macro significance claim.
+Gate benchmark BestSingle is a conservative upper envelope: maximum Mean_nAP and maximum Worst_nAP over each of3 fixed single families, separately. S2 or S4 passes a setting if Mean improves >1e-12 with Worst decline<=0.005, OR Worst improves >1e-12 with Mean decline<=0.005. Same ensemble must pass at least TWO DISTINCT A/B/C environments. S3 is diagnostic, not a trigger. In A at least one outcome can qualify, but it counts only once. Tolerance0.005 is a prespecified practical implementation choice, not inferred from test results. Also report literal-zero-sacrifice sensitivity without changing gate.
+Lock all meta fits and the source gate decision before reading target probabilities in this stage. Prior target results have been reported historically: this is sequential benchmark reuse, not a newly untouched test cohort. Target summary uses seven modules in A, seven 2014 target modules in B (pooled2014 metrics secondary), seventeen courses in C. Do not use target results to reopen the gate. Report all7 methods, mean AP/nAP, worst nAP, population SD and Brier/log loss; compare S1 and allfixed singles.
+If GO, E6B optimizes nonnegative sum1 weights on frozen source OOF only, objectives max equal-domain mean nAP and max minimum-domain nAP. Otherwise cancel E6B and document. E6C/E7/E8 proceed regardless; frozen previous experiments untouched.
+
+===========================================================================
+E6C_probability_transportability_v1.0/PROTOCOL.txt
+===========================================================================
+E6C source-only probability transportability v1.0
+Scope selected frozen single pipelines: E4A14 module/task outer fits, E4T3 temporal task/horizon fits, E5B17 UCI H1 course fits. Reuse existing E4A-C14 calibrators; independently confirm source MLE. Fit20 new calibrators. No base refitting or method search. Calibration of ensemble not added.
+Increasing Platt: logit(pcal)=a+b*logit(clip(p,1e-12,1-1e-12)), b>=1e-8. Unpenalized binomial likelihood, equal weight per source OOF record, no class weighting. Lock all34 fits before target scoring. Source apparent calibrated results reuse fitting data and selected base OOF, explicitly not cross-validated evidence of transportability.
+Raw/calibrated/source-prior constant comparator: Brier,log loss,ECE10 fixed equal-width bins,AP/AUROC,nAP. Calibration intercept/slope jointly fitted on target are DIAGNOSTICS only, never used in predictions. CITL offset intercept fixes slope1. Complete separation -> joint intercept/slope have no finite MLE and are missing with explicit status, rather than invented finite coefficients; constant slope unidentified.
+Source versus target metrics separated. Macro equals outer-domain average in A/C; B reports pooled2014 per pipeline (only one outer temporal split). Worst/max Brier and ECE saved; 1000 paired student-cluster bootstrap for calibrated-minus-raw Brier/log loss, fixed models and calibrators, unadjusted percentile95%. Reliability diagrams10 equal-width bins; sparseN<20 open circles; empty bins omitted. AP/AUROC must remain invariant up to1e-12; numeric saturation/rank changes cause audit failure.
+
+===========================================================================
+E7_interpretation_v1.0/PROTOCOL.txt
+===========================================================================
+E7 prespecified interpretation v1.0 (frozen before attribution computation)
+Primary OULAD models: frozen E4T2013-trained selected LR for Day28Withdrawal, Day28Failure, Day56Failure. StandardScaler coefficients are standardized beta per source-training SD; signs/magnitude are conditional association, not causal effects. Compare Failure beta56-beta28 and absolute-magnitude change; scales and fitted parameters differ across horizons, so this is descriptive.
+Nonlinear sensitivity: same three E4T CatBoost models; native exact TreeSHAP on a deterministic sample of up to1000 source rows. Failure28/56 use identical common source enrolment keys; Withdrawal separate seed-fixed source sample. Explain raw log-odds margin, save expected value/additivity checks; no target outcomes used for selecting features or examples. Feature importance is mean absolute attribution; magnitude comparisons affected by model/scales, not proof of why extra days cause gain.
+Cross-dataset concept replication: frozen E5A H1 source-selected XGBoost, deterministic sample of1000 (or all if fewer) TRAIN rows. Native XGBoost pred_contribs TreeSHAP in log-odds. Sum one-hot contributions back to original variable before absolute-value aggregation; concept attribution sums original variable contributions, then mean absolute value. Not native categorical CatBoost. Compare concept coverage and within-model normalized attribution shares, not raw magnitudes across datasets.
+Concepts: prior_background, participation, academic_progress, academic_performance, administrative_context. OULAD previous attempts ->prior_background; all13 behavioral features ->participation; studied credits and registration timing ->administrative_context. OULAD frozen16 have no direct assignment completion/grade measurement: academic_progress/performance NOT MEASURED, not zero importance. No new assessments/features.
+UCI prior qualification/grade,admission grade ->prior_background; 1st-sem enrolled,evaluations,without evaluations ->participation; approved and credited units ->academic_progress; semester grade ->academic_performance; allremaining entry/background variables ->administrative_context. Groupings are conceptual operationalizations, not equivalent measurements across datasets.
+Optional cheap sign-stability table: coefficients from E4A7fold W28/F28 and E4B7fold F56 LR; no additional SHAP/models. No per-feature significance claims.
+
+===========================================================================
+E8_OULAD_grouped_ablation_v1.0/PROTOCOL.txt
+===========================================================================
+E8 grouped ablation v1.0, frozen before interpretation or ablation scoring
+OULAD Failure2013->2014, Day28 andDay56. LR primary, CatBoost nonlinear sensitivity. Same frozen source/test memberships and16 original features as E4T. Full uses existing frozen model predictions; remove each of4 disjoint exhaustive feature groups in feature_groups.json. Groups cover16/16, no new feature, assessment or UCI removal experiments.
+Each reduced model reuses that family/horizon's full-model SOURCE-selected hyperparameters (fixed-parameter controlled ablation, NOT optimally retuned reduced model). Refit allsource2013 data with reduced predictors; regenerate9-source-domain OOF with the frozen student-purged memberships to set exact mean-domain-F1 threshold. No Optuna. 16 reduced final models and144 source fits, all locked before target scoring.
+Primary nAP/AP contrasts are reduced-minus-full at each horizon and change in Day28->56 gain after removing each group. Compare common2014 enrolment keys for allfour predictions (full28,full56,reduced28,reduced56); same1000 student-cluster bootstrap weights for paired difference-of-differences. Report fixed-horizon source/target scores and module breakdown. Three other group removals and CatBoost are secondary/exploratory, no multiplicity correction or feature-level p-values.
+Training populations differ by3 late source records between landmarks (as frozenE4T); common target cohort fixes testing, not training. Correlated retained features may proxy removed features, so ablation supports conditional predictive dependence rather than a causal mechanism. Lack of gain reduction is a valid counterexample to a temporal-dynamics-specific story.
+
+===========================================================================
+experiment1_day28/PROTOCOL.txt
+===========================================================================
+实验1：OULAD Day28 双任务基线
+协议版本：1.0；随机种子：20261007；在查看测试结果前固定。
+
+一、范围
+本轮完成附件指定的第一阶段：Day28 active cohort、Withdrawal、Failure|Completion、16个行为/行政特征、LR/RF/XGBoost/LightGBM/CatBoost。
+UCI仅检查原始数据并固定H0/H1/H2字段清单。实验2及以后、MOPSO、SHAP不在本轮运行。
+附件中的文献真实性和创新性判断未在本轮核验；它们不作为实测结果或已确认的论文结论。
+
+二、观测时点与队列
+Day28指开课第28天结束时。窗口为相对开课日[0,28]，含29个自然日；不使用负日期的课前点击。
+注册日期必须已知且<=28，退出日期必须>28或没有已知退出事件。
+按顺序互斥排除：注册日期不明、Day28之后注册、退出日期<=28、Withdrawn但退出日期未知、退出日期存在但final_result不是Withdrawn。
+最后一项属于标签不一致，排除数量由cohort_audit.csv和data_audit.json记录；更早规则优先。
+不知道退出日期的Withdrawn记录不能据此确认Day28仍在读。本轮完整案例设计可能产生选择偏差，后续需报告敏感性分析。
+只有预测日之前且不早于该学生注册日期的日志进入聚合。零日志学生保留，不因缺少行为而删行。
+date_unregistration和final_result只用于队列/标签；id_student只用于关联、划分及聚类置信区间，不进入模型。
+
+三、标签
+W：Future Withdrawal=1；Fail/Pass/Distinction=0。
+F：只在最终非Withdrawn记录中，Fail=1；Pass/Distinction=0。
+F为条件性任务，结果不能解释为全体在读学生的无条件失败风险；本轮尚未验证双路径组合优于合并/三分类。
+
+四、16个预测变量定义
+有效暴露日为max(0,date_registration)..28；每天无点击记为0。
+total_clicks：有效观测窗口sum_click总和。
+active_days：点击总数>0的日期数。
+active_ratio：active_days/有效暴露日数。
+unique_sites：访问过的不同id_site数量。
+unique_activity_types：访问过的不同activity_type数量。
+clicks_per_active_day：total_clicks/active_days，无活跃日则0。
+daily_click_std：全部有效暴露日点击数的总体标准差(ddof=0)，包含零点击日。
+inactivity_gap：28减最后活跃日；从未活跃则取有效暴露日数。
+recent7_clicks：Day22..28点击数。
+previous7_clicks：Day15..21点击数。
+engagement_change：log(1+recent7_clicks)-log(1+previous7_clicks)。
+engagement_slope：有效暴露日的原始每日点击数对相对日序号的最小二乘斜率；仅一天则0。
+activity_entropy：以各activity_type点击总数为权重的Shannon entropy，使用自然对数；零点击则0。
+num_of_prev_attempts：原始重修次数。
+studied_credits：原始同时在读学分数。
+registration_lead_time：-date_registration；开课后注册时为负数。
+本轮不使用人口属性、assessment成绩/提交、课程编码或开课批次作为预测变量。
+vle.csv的activity_type用作静态资源类型元数据，不使用week_from/week_to。
+
+五、划分与调参
+StratifiedGroupKFold(5,shuffle=True,random_state=20261007)，按final_result分层、id_student分组。
+fold0为test，fold1为validation，fold2..4合并为train；约60%/20%/20%，实际数目见split_summary.csv。
+W、F沿用同一学生划分，F只过滤Withdrawn。三个集合的学生交集必须为空。
+这是混合课程/年份下的内部验证，不等价于未来年份验证或跨课程验证。
+每模型每任务30次Optuna TPE搜索，共300次；所有trial仅在train拟合、validation评估。
+不做SMOTE，不做测试集早停、不做测试集调参。各模型搜索空间在run_experiment.py的parameters()中明确。
+LR标准化仅在train拟合。树模型直接使用有限数值特征。
+按validation average precision选择参数。最终模型仍用train拟合，不合并validation，以保持阈值评估关系明确。
+按validation最高F1选阈值；相同F1时取precision_recall_curve返回的第一个最优阈值。
+阈值相关的Recall、Precision、F1、MCC、BalancedAccuracy在test报告；另提供固定0.5阈值的F1。
+所有五个模型都报告测试结果；推荐模型按validation AUPRC选择，不能按测试集排名重新选型。
+不对概率进行后校准，Brier报告原始概率质量。
+
+六、指标与不确定性
+AUPRC在本实验明确实现为sklearn.average_precision_score（AP），不是梯形积分PR-AUC。
+AUROC、Brier使用连续预测概率；测试阳性比例作为AP参考基线。
+95% AP置信区间采用测试学生聚类bootstrap，1000次，固定已拟合模型；同一学生的全部选课记录一起重采样。
+区间不包含训练随机性、超参搜索不确定性或跨域变化；不同模型区间重叠与否不是显著性检验。
+首轮仅一个固定学生分组划分；结果不能单独支撑算法优越性、双路径优势或泛化稳定性结论。
+
+七、检查和停止条件
+1. 校验源ZIP SHA256与软件版本并保存run_manifest.json。
+2. 合成测试：添加Day29及课前记录不得改变Day28特征；核对零点击日标准差与零行为处理。
+3. 真实数据校验：关联键唯一；日志日期0..28；全部模型特征有限；学生交集为0；资源类型无未匹配。
+4. 记录每一项队列排除、阳性率、数据划分和全部trial。
+5. AUROC>0.98时标记需要调查，而非视为模型优异。高于阈值与否不构成全部无泄漏的证明。
+6. 完成Day28后停止扩展，交付结果与核查发现。
+
+八、UCI检查的边界
+H0为24个非学期字段；H1加第一学期6个字段；H2再加第二学期6个字段。
+这只是字段分组，不是采集时点已验证。欠费、学费缴清、奖学金、宏观指标需进一步核实可用时点。
+UCI没有公开的学生年份和退出日期，不能声称H1/H2是与OULAD同等严格的active-at-horizon前瞻队列。
+Enrolled不能当作已毕业；本轮不训练UCI模型。
+
+九、复现
+安装requirements-lock.txt，使用Python3.12；传入两个原始ZIP路径：
+python run_experiment.py --oulad "OULAD DATASET.zip" --uci "predict+students+dropout+and+academic+success.zip" --output "new_run" --trials 30
+默认6个CPU线程，模型串行执行。
+Optuna数据库支持同一数据、同一代码、同一配置的中断恢复。任何协议/特征/划分更改应使用全新的output目录，不能复用旧study。
+测试预测、模型文件、超参数、trial明细、划分、特征矩阵均保留，便于检查。
+
+===========================================================================
+EXPERIMENTS_FROZEN_v1.0/VALIDATION_PROTOCOL.txt
+===========================================================================
+Submission closeout protocol | locked 2026-10-08 before this verification run
+Scope: verify E1-E9, organize Results, freeze evidence. No new hypothesis, dataset, model family, optimizer, SHAP model or tuning budget. E6A NO GO remains binding; no MOPSO.
+
+Manuscript priority is finalized AFTER results were seen. Primary/secondary below are reporting priorities, not a new claim of prospective preregistration. Original experiment protocols retain their own chronology.
+RQ1: information availability and outcome-specific temporal predictability. Primary contrasts: OULAD Failure Day28->56 (internal common cohort, unseen-course common cohorts, future-year common cohort), UCI H0-strict->H1. Withdrawal Day28->56 common-cohort contrast is the primary outcome-specific control; a confidence interval crossing zero is not proof of equivalence. UCI H1->H2 is secondary.
+RQ2: model complexity and ranking under domain/year shift, plus source-only ensemble NO GO. Use frozen source-selected families; fixed-family comparisons descriptive, no target selection. Separate pooled and domain-equal results.
+RQ3: probability transport and predictive information groups. Calibration paired contrasts and E7/E8 explanations/ablation are secondary/exploratory. Concept replication is not feature transfer or causal replication.
+
+Statistics: preserve original paired 95% student-cluster bootstrap intervals. Use a single explicitly disclosed manuscript information-contrast family of five available inferential contrasts (internal Failure, internal Withdrawal control, future-year Failure, UCI H0->H1, UCI H1->H2), reporting Bonferroni marginal 99% percentile bootstrap intervals as a multiplicity sensitivity. This reporting family is assembled after seeing results. These approximate intervals are conditional on fixed models and splits and do not establish exact finite-sample familywise coverage. Only 1000 frozen replicates are available; tail precision is limited. Do not invent bootstrap p-values. Unseen-course macro contrast remains descriptive without an aggregate CI; seven module-level intervals form a separate domain-diagnostic family (m=7). No global correction across unrelated model, calibration and explanation tables.
+
+Metrics: recalculate AP, nAP, AUROC, Brier, LogLoss and Lift@10 from frozen individual predictions. nAP=(AP-pi)/(1-pi). Lift@10 uses k=ceil(.1*N), deterministic descending probability and ascending enrollment/record-key ties; flag differences from archived precision or legacy tie rules without overwriting history. Preserve every source path/hash. Confirm monotonically calibrated AP/AUROC and paired Brier/LogLoss effects. Course-average Lift and pooled student capacity are distinct estimands.
+
+Interpretation: compare standardized LR signs, source CatBoost feature/SHAP Spearman directions and group ablation. SHAP mean absolute importance is unsigned. Correlated/nonlinear features can disagree; expose discrepancies, never force concordance. Summed feature absolute importance is a descriptive group summary, distinct from E7 absolute summed concept SHAP. Cross-dataset mapping retains all E7 assignments with reporting aliases: prior_background->prior history, participation->engagement, academic_progress->progress, academic_performance->performance; administrative_context retained as a fifth contextual category. Unmeasured OULAD progress/performance stay missing.
+
+Clean reproduction: fresh Python 3.12 venv WITHOUT system-site-packages; install frozen requirement versions. Starting only from the original OULAD ZIP and frozen code, reconstruct Day28/56 cohorts, all 16 features, raw-2014 student blacklist and nine source domain splits. No frozen feature, split, fitted-model or trial result may feed reconstruction/training. Rerun original 20 trials/family at Day28 and 15/family at Day56 for LR/XGBoost/CatBoost (105 trials, 945 inner fits, six final fits), same seed and settings. Lock all source choices before target scoring. Only then compare reconstructed features/splits, trial values, best parameters, predictions and common-cohort gain with frozen E4T. Frozen tables serve only as audit references. Raw ZIP SHA256 must match original provenance.
+
+Freeze marker issued only after checks complete. Existing artifacts remain byte-for-byte unchanged. Any failure is retained and resolved or disclosed before marking completion.

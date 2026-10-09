@@ -1,0 +1,62 @@
+{
+  "release": "4.0",
+  "inputs": {
+    "manuscript": {
+      "file": "C:\\Users\\lenovo\\Downloads\\Manuscript (1).docx",
+      "sha256": "1d33c4250834d11d25cc430132be7f10579c3fc4913059a41a014f196f27f78e",
+      "paragraphs": 175,
+      "tables": 3,
+      "characters": 58309
+    },
+    "supplement": {
+      "file": "C:\\Users\\lenovo\\Downloads\\Supplementary_Information (1).docx",
+      "sha256": "9de02684b36c7a1760450ba107eb0fe3be8a8e299205275d9edb83c861fb8f0e",
+      "paragraphs": 252,
+      "tables": 41,
+      "characters": 101165
+    }
+  },
+  "scripts": {
+    "code/revision_run_fixed_controls.py": {
+      "source": "research_project/scripts/run_fixed_controls.py",
+      "sha256": "6afc450e4e4514be7f8638b3f303f49af3e6a297ce37fb1327c6dd123d289d67"
+    },
+    "code/revision_run_fullrisk.py": {
+      "source": "research_project/scripts/run_fullrisk.py",
+      "sha256": "2e4cf5417dd7c8e1f05a7aa6cc0bb72f5b9ec6f4d701ff1a3107ddbe1b65935c"
+    },
+    "code/revision_run_calendar_proxy.py": {
+      "source": "research_project/scripts/run_calendar_proxy.py",
+      "sha256": "c3395c78d1a49281f549e3a3e307fb8d8a5969732e9adfbf830c5dcb3994beb8"
+    },
+    "code/revision_paired_statistics.py": {
+      "source": "research_project/scripts/paired_statistics.py",
+      "sha256": "c9301c3b01e4941104c6181222dad66fd14fbe9f90493f7519ccedd05a2401cb"
+    },
+    "code/revision_assemble_fixed_pairs.py": {
+      "source": "research_project/scripts/assemble_fixed_pairs.py",
+      "sha256": "bf1e0af348154a44c2054ea3484999b9418ec625e7756d4208ec93e215c6e163"
+    },
+    "code/revision_first_batch.py": {
+      "source": "research_project/scripts/first_batch.py",
+      "sha256": "d51437bb4dfe47d3363ab6ce0e42ffb7f05aed281be6fb96886ef88459e3b750"
+    },
+    "code/revision_finalize_new_experiments.py": {
+      "source": "research_project/scripts/finalize_new_experiments.py",
+      "sha256": "0adc1563407aa77864ca864b567efa9e03b818490b03c017827bf75d4672e7c8"
+    },
+    "code/revision_verify_saved_models.py": {
+      "source": "research_project/scripts/verify_saved_models.py",
+      "sha256": "86f40e8efe10af9b9b3db8ac7685144ec2629f798237c1b568444528abed9a24"
+    }
+  },
+  "payload_source_root": "research_project/",
+  "unchanged_files": 725,
+  "exclusions": [
+    "E13 superseded initial-row-order fits and bootstrap",
+    "model binaries",
+    "SQLite trial databases",
+    "raw OULAD logs",
+    "manuscript Word files"
+  ]
+}

@@ -1,0 +1,11 @@
+RELEASE v4.0 LOCAL QA
+
+Fresh ZIP: check, combined verify, preflight passed.
+Actual Git clone with core.autocrlf=true: check and combined verify passed.
+Four corruption/missing-file cases rejected.
+Three representative LR refits (E10B internal D28/D56; E13 H0-strict) matched every original prediction exactly. No Optuna searches or new bootstrap draws.
+All 4,936 historical source files, 725 selected revision sources and both input Word documents remained unchanged.
+Existing isolated Python 3.12.14 environment used; pip check passed.
+See package_verification.json for numeric coverage and limitations.
+The 578 old summary rows without bundled predictions are not claimed as newly independently reverified. Complete E11/E12 training replay requires the full historical archive.
+Remote GitHub upload was not performed.

@@ -1,0 +1,21 @@
+{
+  "format": "split-tar-xz-v1",
+  "payload_sha256": "f3f889e43120524ea5500e027b6744a17bb5486a2857c2c1f0775413b351ed9e",
+  "parts": [
+    {
+      "name": "core.part001",
+      "bytes": 4000000,
+      "sha256": "2b4ee2bfc9ea726477f6a6c68e8e8476efc0a2d3b456b8bc0eda3fb6cd95e3c3"
+    },
+    {
+      "name": "core.part002",
+      "bytes": 4000000,
+      "sha256": "5c5bbfb5cdbe672cee14285ce22dbc5bbfe841b4151b53976939305df8397122"
+    },
+    {
+      "name": "core.part003",
+      "bytes": 1292648,
+      "sha256": "5131611d1c4ce620731820d1704e84fad635b933d55caeb6664f512b6660fca5"
+    }
+  ]
+}

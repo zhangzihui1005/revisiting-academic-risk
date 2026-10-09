@@ -1,0 +1,19 @@
+manuscript_item,content,source_in_package,boundary
+Main Table 1,Cohort definitions and sizes,Original cohort audits; revision S26 N; fixed input audit,Cohort scopes differ; no pooled denominator
+Main Table 2 / Figures 2–4,"Temporal gains, full risk, calendar controls",results/S26_E10_E14_paired_horizon_comparisons.csv; results/S27_E10B_fixed_configuration_metrics.csv; results/S29_E12_original_and_proxy_results.csv,Original rows also results/Results_Table2_contrasts.csv; proxy not prospective
+Main Table 3 / Figure 5,Calibration versus source prior,results/S31_E14_calibration_vs_constant.csv; restored E14/bootstrap/summary.json; results/E6C_paired_calibration_changes.csv,Equal-module vs pooled separate; adverse original examples post-hoc
+Figure 1,Study design,docs/REPRODUCTION_SCOPE.md,Artwork not required for numerical reproduction
+SI S1–S9,"Literature, data, features, protocols and uncertainty",docs/PROTOCOLS.txt; code model/feature engines; restored configs and audits,Literature table not redistributed; some historical full records external
+SI S10–S21,Original E1–E6 results and calibration,results/all_recomputed_metrics.csv; restored original stage summaries,Core subset rechecked; not all original prediction files bundled
+SI S22 / Figure S15,Explanation sign agreement,results/interpretation_direction_audit.csv; restored E7 summaries,Different descriptive estimands; not causal
+SI S23 / Figures S12–S13,Ablation losses and recovered intervals,results/S23_historical_ablation_loss.csv; results/E8_fixed_horizon_ablation.csv,Full minus reduced; reverse both sign and interval endpoints
+SI S24,Original multiplicity sensitivity,results/Results_Table2_contrasts.csv,Does not extend to added E10–E14 intervals
+SI S25,Computational accounting,restored revision_outputs/audit/E10_E14_final_validation.json; original execution audits,4470 original +195 added trials; superseded fits separately accounted
+SI S26 / Figures S8–S10,All added paired gains,results/S26_E10_E14_paired_horizon_comparisons.csv,79 existing contrasts; includes shared dual withdrawal duplicate
+SI S27,Fixed train/configuration metrics,results/S27_E10B_fixed_configuration_metrics.csv,12 horizon fits /6 contrasts
+SI S28 / Figure S9,Complete active-risk prediction,results/S28_E11_fullrisk_dynamic.csv; results/S28b_E11_multiclass_metrics.csv; restored E11_confusion_matrices.csv,Internal only; argmax distinct from capacity ranking
+SI S29 / Figure 4,Calendar-proxy audit and outcomes,results/S29_E12_original_and_proxy_results.csv; results/S29b_E12_source_calendar_eligibility.csv,"Initial status flags retained, final audit defines completion"
+SI S30 / Figure S10,Corrected-v2 UCI no-macro control,results/S30_E13_minus_macro_metrics.csv; results/S30b_E13_LOCO_aggregation.csv,18/24/30 fields; all17 courses and excluding33 sensitivity
+SI S31 / Figure S11,Global student-cluster calibration comparison,results/S31_E14_calibration_vs_constant.csv; restored E14/bootstrap/summary.json,"5000 saved draws, 8 contrasts"
+SI S32,Post-hoc difference between gains,results/S32_verified_posthoc_contrasts.csv; revision.py:derived,"Reconstructed from synchronized existing draws, no new bootstrap"
+"Figures S1–S7,S14,S16",Original descriptive evidence,Restored E1–E9 stage summaries; results/Results_Table1_selected_performance.csv; results/Results_Table2_contrasts.csv,Plot artwork not bundled; old filenames are not current numbering

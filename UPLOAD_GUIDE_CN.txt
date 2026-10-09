@@ -1,0 +1,20 @@
+GitHub 投稿复现包 v4.0（对齐更新正文及补充材料，E1–E14）
+
+1. 解压交付 ZIP，打开 revisiting-academic-risk 文件夹。
+2. 上传该文件夹内的全部文件和子文件夹到原仓库根目录。不要上传整个 ZIP，
+   也不要把 revisiting-academic-risk 再套一层目录。
+3. 仓库继续使用 revisiting-academic-risk，不需要改论文中的链接。
+4. 新版替换同路径旧文件。旧版多余的 evidence/core.part004、core.part005
+   如仍在仓库，可删除；新版 bundle.json 只引用新版清单中的分片。
+5. 结果压缩分片是可自动解包的真实证据，不是下载占位链接。所有分片都要上传。
+6. 上传后可下载仓库 ZIP，在解压目录运行 python reproduce.py check 检查是否齐全。
+
+包中不含论文 Word、大型模型和 OULAD 原始日志。根目录文件少于100个（按全部
+子目录递归计数），单文件不超过4,000,000字节。最终实测文件数和总大小见
+package_verification.json。网页端实际上传受网络和账号状态影响，本地检查不能
+保证远程上传一定成功。
+
+默认 verify 只核对保存预测、既有置信区间和配置，不训练不调参。
+需要实际重拟合时使用 README 中 revision.py replay-fixed 指定模型。
+E10B和E13共38个固定配置可逐个重拟合；E11/E12完整重跑仍依赖作者原档案。
+不要把本包称为所有 E1–E14 全流程的一键复现包。

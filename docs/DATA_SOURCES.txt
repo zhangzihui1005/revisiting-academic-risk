@@ -1,0 +1,20 @@
+DATA SOURCES AND ATTRIBUTION
+
+OULAD creators: Jakub Kuzilek, Martin Hlosta, Zdenek Zdrahal.
+Dataset record: https://archive.ics.uci.edu/dataset/349/open+university+learning+analytics+dataset
+Dataset DOI: https://doi.org/10.24432/C5KK69
+Descriptor: Open University Learning Analytics dataset. Scientific Data 4, 170171 (2017). https://doi.org/10.1038/sdata.2017.171
+Official UCI dataset licence: CC BY 4.0, https://creativecommons.org/licenses/by/4.0/
+Exact study ZIP SHA256: f2ed1902616c1fe8d2824d872c0b7d2d72be435bf0124d077044fe4be2c6d3e4
+
+UCI creators: Valentim Realinho, Monica Vieira Martins, Jorge Machado, Luis Baptista.
+Predict Students' Dropout and Academic Success [Dataset] (2021).
+Dataset record: https://archive.ics.uci.edu/dataset/697/predict+students+dropout+and+academic+success
+Dataset DOI: https://doi.org/10.24432/C5MC89
+Descriptor: Realinho et al. Predicting Student Dropout and Academic Success. Data 7(11), 146 (2022). https://doi.org/10.3390/data7110146
+Official UCI dataset licence: CC BY 4.0, https://creativecommons.org/licenses/by/4.0/
+Exact study ZIP SHA256: e90e55fd65ec462ae283ebeb2cca409319e3460ed898d8754f62fb35cc83a65d
+
+Raw ZIPs are not bundled in this core release. Download them from the official dataset records above, or use byte-identical local copies, and supply --oulad to raw-oulad for the OULAD pipeline. The supported rerun-uci command starts from bundled frozen inputs and has no --uci option. SHA256 values above define the original study inputs. Features, filtering, splits, predictions and estimates are derived analyses, not new student data collected by this study. Attribute the dataset creators, retain licence notices and indicate these changes. Dataset licences do not automatically license original software or manuscript artwork. Public anonymized study record identifiers remain present for joining and auditing; no new identification is performed.
+
+Official licence pages were checked during packaging. A current remote download need not be byte-identical to the frozen ZIP; the bundled checksums define exact computational inputs.

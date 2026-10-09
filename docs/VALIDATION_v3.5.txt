@@ -1,0 +1,10 @@
+PACKAGING VALIDATION v3.5 — 2026-10-09 (Asia/Shanghai)
+
+Fresh Python 3.12.14 virtual environment; system-site-packages disabled; all 34 locked dependencies installed; pip check passed.
+Fresh ZIP extraction: check, verify, preflight passed.
+Fresh local Git clone with core.autocrlf=true: check, verify, preflight passed, including actual LF-to-CRLF conversions.
+Each verification checked 83 metric rows (747 scalar comparisons, maximum difference 0), 12 intervals from existing bootstrap draws, and three calibration settings. The 578 other historical metric rows remain summaries rather than current prediction-level checks.
+Each restoration validated all 949 archived scientific files against original SHA256.
+Negative tests: an edited source file, a changed numeric result, a corrupted evidence part and a missing evidence part each failed as required. Test mutations were confined to a disposable copy.
+No fits, tuning, new bootstrap draws or new SHAP values. Full raw OULAD and UCI retraining was not repeated. Original v3.4 sources/evidence/results and the public repository were not modified.
+These are local replacement-package tests; they do not declare the old public SHA fixed, do not establish independent third-party replication, and do not certify the next browser upload. No tag or Release was created.

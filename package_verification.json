@@ -1,0 +1,206 @@
+{
+  "release": "4.0",
+  "status": "passed",
+  "aligned_documents": {
+    "manuscript": {
+      "name": "Manuscript (1).docx",
+      "sha256": "1d33c4250834d11d25cc430132be7f10579c3fc4913059a41a014f196f27f78e"
+    },
+    "supplement": {
+      "name": "Supplementary_Information (1).docx",
+      "sha256": "9de02684b36c7a1760450ba107eb0fe3be8a8e299205275d9edb83c861fb8f0e"
+    }
+  },
+  "zip_verification": {
+    "status": "passed",
+    "prediction_metric_rows": 83,
+    "metric_comparisons": 747,
+    "max_abs_difference": 0.0,
+    "frozen_summary_rows_without_bundled_predictions": 578,
+    "existing_interval_rows": 12,
+    "calibration_settings": 3,
+    "fits": 0,
+    "new_bootstrap_draws": 0,
+    "scope": "Core subset only. Other E1–E9 tables are frozen summaries, not newly recomputed here."
+  },
+  "revision_verification": {
+    "status": "passed",
+    "horizon_contrasts": 79,
+    "existing_horizon_draws": 158000,
+    "fixed_configuration_metric_rows": 38,
+    "fixed_input_audits": 38,
+    "E13_aggregation_summaries": 3,
+    "E11_dynamic_rows": 14,
+    "E11_multiclass_rows": 6,
+    "E11_confusion_cells": 54,
+    "E12_proxy_rows": 45,
+    "E14_global_cluster_draws": 5000,
+    "E14_contrasts": 8,
+    "S32_saved_draw_contrasts": 4,
+    "S23_historical_ablation_rows": 16,
+    "fits": 0,
+    "new_bootstrap_draws": 0,
+    "scope": "Saved predictions, saved interval quantiles, input/configuration audits; no new model selection or statistical sampling."
+  },
+  "zip_preflight": "passed",
+  "git_CRLF_check": "passed",
+  "git_CRLF_verification": "passed",
+  "corruption_cases_rejected": 4,
+  "representative_fixed_refits": [
+    {
+      "status": "passed",
+      "job": "E10B_internal_LR_D28",
+      "max_prediction_difference": 0.0,
+      "tolerance": 1e-07,
+      "new_fits": 1,
+      "new_search_trials": 0,
+      "new_bootstrap_draws": 0
+    },
+    {
+      "status": "passed",
+      "job": "E10B_internal_LR_D56",
+      "max_prediction_difference": 0.0,
+      "tolerance": 1e-07,
+      "new_fits": 1,
+      "new_search_trials": 0,
+      "new_bootstrap_draws": 0
+    },
+    {
+      "status": "passed",
+      "job": "E13_internal_H0_strict_LR",
+      "max_prediction_difference": 0.0,
+      "tolerance": 1e-07,
+      "new_fits": 1,
+      "new_search_trials": 0,
+      "new_bootstrap_draws": 0
+    }
+  ],
+  "new_search_trials": 0,
+  "new_bootstrap_draws": 0,
+  "original_historical_files_checked": 4936,
+  "original_historical_files_changed": 0,
+  "selected_revision_source_files_checked": 725,
+  "selected_revision_source_files_changed": 0,
+  "input_Word_files_unchanged": true,
+  "environment": "Existing isolated Python 3.12.14 v3.5 environment with locked scientific dependencies; pip check passed. Not a newly installed environment for this release.",
+  "scope": "Core historical evidence and final added evidence; selected E10B/E13 prepared-input replays, not a full raw-data-to-all-E1-E14 reconstruction.",
+  "public_repository_modified": false,
+  "remote_upload_tested": false,
+  "commands": [
+    {
+      "step": "zip_check",
+      "command": "C:\\Users\\lenovo\\Documents\\Codex\\2026-10-07\\shen\\work\\github_core_v35\\venv\\Scripts\\python.exe reproduce.py check --workdir C:\\Users\\lenovo\\Documents\\Codex\\2026-10-07\\shen\\work\\github_revision_v4\\zip_work",
+      "exit_code": 0,
+      "expected": 0,
+      "seconds": 0.094
+    },
+    {
+      "step": "zip_verify",
+      "command": "C:\\Users\\lenovo\\Documents\\Codex\\2026-10-07\\shen\\work\\github_core_v35\\venv\\Scripts\\python.exe reproduce.py verify --workdir C:\\Users\\lenovo\\Documents\\Codex\\2026-10-07\\shen\\work\\github_revision_v4\\zip_work",
+      "exit_code": 0,
+      "expected": 0,
+      "seconds": 19.953
+    },
+    {
+      "step": "zip_preflight",
+      "command": "C:\\Users\\lenovo\\Documents\\Codex\\2026-10-07\\shen\\work\\github_core_v35\\venv\\Scripts\\python.exe reproduce.py preflight --workdir C:\\Users\\lenovo\\Documents\\Codex\\2026-10-07\\shen\\work\\github_revision_v4\\zip_work",
+      "exit_code": 0,
+      "expected": 0,
+      "seconds": 3.782
+    },
+    {
+      "step": "git_init",
+      "command": "C:\\Users\\lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\git\\cmd\\git.exe init",
+      "exit_code": 0,
+      "expected": 0,
+      "seconds": 0.094
+    },
+    {
+      "step": "git_no_conversion",
+      "command": "C:\\Users\\lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\git\\cmd\\git.exe config core.autocrlf false",
+      "exit_code": 0,
+      "expected": 0,
+      "seconds": 0.031
+    },
+    {
+      "step": "git_add",
+      "command": "C:\\Users\\lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\git\\cmd\\git.exe add .",
+      "exit_code": 0,
+      "expected": 0,
+      "seconds": 1.016
+    },
+    {
+      "step": "git_commit",
+      "command": "C:\\Users\\lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\git\\cmd\\git.exe -c \"user.name=Local Packaging QA\" -c user.email=qa@example.invalid -c commit.gpgsign=false commit -m \"Local transport fixture\"",
+      "exit_code": 0,
+      "expected": 0,
+      "seconds": 0.14
+    },
+    {
+      "step": "git_clone",
+      "command": "C:\\Users\\lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\git\\cmd\\git.exe -c core.autocrlf=true clone C:\\Users\\lenovo\\Documents\\Codex\\2026-10-07\\shen\\work\\github_revision_v4\\git_seed C:\\Users\\lenovo\\Documents\\Codex\\2026-10-07\\shen\\work\\github_revision_v4\\git_clone",
+      "exit_code": 0,
+      "expected": 0,
+      "seconds": 0.828
+    },
+    {
+      "step": "git_check",
+      "command": "C:\\Users\\lenovo\\Documents\\Codex\\2026-10-07\\shen\\work\\github_core_v35\\venv\\Scripts\\python.exe reproduce.py check",
+      "exit_code": 0,
+      "expected": 0,
+      "seconds": 0.375
+    },
+    {
+      "step": "git_verify",
+      "command": "C:\\Users\\lenovo\\Documents\\Codex\\2026-10-07\\shen\\work\\github_core_v35\\venv\\Scripts\\python.exe reproduce.py verify --workdir C:\\Users\\lenovo\\Documents\\Codex\\2026-10-07\\shen\\work\\github_revision_v4\\git_work",
+      "exit_code": 0,
+      "expected": 0,
+      "seconds": 19.907
+    },
+    {
+      "step": "reject_source",
+      "command": "C:\\Users\\lenovo\\Documents\\Codex\\2026-10-07\\shen\\work\\github_core_v35\\venv\\Scripts\\python.exe reproduce.py check",
+      "exit_code": 1,
+      "expected": 1,
+      "seconds": 0.125
+    },
+    {
+      "step": "reject_result",
+      "command": "C:\\Users\\lenovo\\Documents\\Codex\\2026-10-07\\shen\\work\\github_core_v35\\venv\\Scripts\\python.exe reproduce.py check",
+      "exit_code": 1,
+      "expected": 1,
+      "seconds": 0.109
+    },
+    {
+      "step": "reject_payload",
+      "command": "C:\\Users\\lenovo\\Documents\\Codex\\2026-10-07\\shen\\work\\github_core_v35\\venv\\Scripts\\python.exe reproduce.py check",
+      "exit_code": 1,
+      "expected": 1,
+      "seconds": 0.125
+    },
+    {
+      "step": "reject_missing",
+      "command": "C:\\Users\\lenovo\\Documents\\Codex\\2026-10-07\\shen\\work\\github_core_v35\\venv\\Scripts\\python.exe reproduce.py check",
+      "exit_code": 1,
+      "expected": 1,
+      "seconds": 0.094
+    },
+    {
+      "step": "pip_check",
+      "command": "C:\\Users\\lenovo\\Documents\\Codex\\2026-10-07\\shen\\work\\github_core_v35\\venv\\Scripts\\python.exe -m pip check",
+      "exit_code": 0,
+      "expected": 0,
+      "seconds": 0.406
+    },
+    {
+      "step": "pip_freeze",
+      "command": "C:\\Users\\lenovo\\Documents\\Codex\\2026-10-07\\shen\\work\\github_core_v35\\venv\\Scripts\\python.exe -m pip freeze",
+      "exit_code": 0,
+      "expected": 0,
+      "seconds": 0.312
+    }
+  ],
+  "upload_files": 87,
+  "largest_file_bytes": 4000000,
+  "uncompressed_bytes_approx": 31880554
+}

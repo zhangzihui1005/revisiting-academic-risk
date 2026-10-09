@@ -1,0 +1,8 @@
+RQ,reporting_priority,contrast_or_analysis,constraint
+RQ1,primary,"Failure Day28→56: internal, LOMO, future-year; UCI H0→H1",LOMO macro descriptive; inferential contrasts use fixed cohorts
+RQ1,primary control,Withdrawal internal common-cohort Day28→56,No equivalence claim when CI crosses zero
+RQ1,secondary,UCI H1→H2; matched-module and dynamic-cohort sensitivity,Different estimands explicitly labeled
+RQ2,primary descriptive,Source-selected vs fixed families; E6A source gate,NO GO unchanged; target not used to trigger optimizer
+RQ3,secondary,Source-only calibration transport,"Domain-specific paired intervals exploratory, no universal benefit claim"
+RQ3,post-hoc/explanatory,"E7 coefficients/SHAP, E8 fixed-parameter group removal",No causality; no new models
+RQ3,post-hoc sensitivity,UCI calibration equal-domain/exclude tiny course/record weighting,Keep all versions; no result-based preference

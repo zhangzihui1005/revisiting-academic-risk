@@ -1,0 +1,101 @@
+{
+  "status": "passed",
+  "date": "2026-10-08",
+  "platform": "Windows Python 3.12.14, fresh venv without system-site-packages",
+  "tested_paths_include_spaces": true,
+  "restore": {
+    "status": "passed",
+    "files": 4895,
+    "unique_blobs": 3947,
+    "payload_sha256": "a18c7381bb282435a4c12b558e4ad16b1d3f36150d5fc2865bf7c1170f5f89b1"
+  },
+  "metric_verification": {
+    "status": "passed",
+    "metric_rows": 661,
+    "archived_comparisons": 3386,
+    "max_abs_difference": 2.105842905608668e-08,
+    "discrepancies": 0,
+    "calibration_checks": 34,
+    "logloss_clip": 1e-12,
+    "tie_rule": "ascending record key after descending probability"
+  },
+  "raw_pipeline": {
+    "status": "passed",
+    "new_clean_environment": true,
+    "raw_features_and_splits_reconstructed": true,
+    "frozen_data_used_for_training": false,
+    "trials": 105,
+    "inner_fits": 945,
+    "final_fits": 6,
+    "checks": [
+      {
+        "experiment": "Day28_failure",
+        "model": "LR",
+        "trials": 20,
+        "same_best_parameters": true,
+        "max_prediction_difference": 2.220446049250313e-16
+      },
+      {
+        "experiment": "Day28_failure",
+        "model": "XGBoost",
+        "trials": 20,
+        "same_best_parameters": true,
+        "max_prediction_difference": 0.0
+      },
+      {
+        "experiment": "Day28_failure",
+        "model": "CatBoost",
+        "trials": 20,
+        "same_best_parameters": true,
+        "max_prediction_difference": 0.0
+      },
+      {
+        "experiment": "E4T-B_day56_failure_secondary",
+        "model": "LR",
+        "trials": 15,
+        "same_best_parameters": true,
+        "max_prediction_difference": 2.220446049250313e-16
+      },
+      {
+        "experiment": "E4T-B_day56_failure_secondary",
+        "model": "XGBoost",
+        "trials": 15,
+        "same_best_parameters": true,
+        "max_prediction_difference": 0.0
+      },
+      {
+        "experiment": "E4T-B_day56_failure_secondary",
+        "model": "CatBoost",
+        "trials": 15,
+        "same_best_parameters": true,
+        "max_prediction_difference": 0.0
+      }
+    ],
+    "selected_models": [
+      {
+        "experiment": "Day28_failure",
+        "selected_model": "LR",
+        "source_mean_AP": 0.5889507592252651
+      },
+      {
+        "experiment": "E4T-B_day56_failure_secondary",
+        "selected_model": "LR",
+        "source_mean_AP": 0.6571219372092707
+      }
+    ],
+    "common_N": 12616,
+    "common_gain_nAP": 0.11987503764942752,
+    "frozen_gain_nAP": 0.1198750376494276
+  },
+  "raw_archives_automatically_reassembled_and_hash_verified": true,
+  "syntax_checked_code_files": 24,
+  "tested_commands": [
+    "check",
+    "verify --workdir <path with spaces>",
+    "raw-oulad --oulad <original ZIP> --workdir <path with spaces>",
+    "data --workdir <path with spaces>",
+    "plan"
+  ],
+  "stage_replay_entrypoints": "provided and syntax checked; not all expensive stages rerun during packaging",
+  "source_code_mirrors": "byte-identical, mapped in code/SOURCE_MAP.json"
+}

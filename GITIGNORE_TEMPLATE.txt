@@ -1,0 +1,7 @@
+.venv/
+_work/
+_review/
+_rawcheck/
+_uci/
+__pycache__/
+*.pyc

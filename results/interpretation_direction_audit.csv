@@ -1,0 +1,49 @@
+feature,group,horizon,LR_beta,CatBoost_value_SHAP_spearman,direction_agrees,interpretation,task
+total_clicks,F2_volume,28,-0.05096894888398974,-0.9822776119714273,True,descriptive sign agreement only,failure
+total_clicks,F2_volume,56,-0.06579143472099204,-0.9316739414230606,True,descriptive sign agreement only,failure
+active_days,F2_volume,28,-0.11050784325627175,-0.9795220698111573,True,descriptive sign agreement only,failure
+active_days,F2_volume,56,-0.16457574882705134,-0.9685271307100796,True,descriptive sign agreement only,failure
+active_ratio,F2_volume,28,-0.11059902686449113,-0.9924186741703804,True,descriptive sign agreement only,failure
+active_ratio,F2_volume,56,-0.16485952715367344,-0.9394786338119541,True,descriptive sign agreement only,failure
+unique_sites,F4_diversity_regularity,28,-0.02182509388042006,0.7840328798565481,False,discordant marginal directions: retain nonlinear/correlated-feature caveat,failure
+unique_sites,F4_diversity_regularity,56,-0.020007928364238932,0.6800429157710365,False,discordant marginal directions: retain nonlinear/correlated-feature caveat,failure
+unique_activity_types,F4_diversity_regularity,28,-0.03763642314037697,0.5438595720240091,False,discordant marginal directions: retain nonlinear/correlated-feature caveat,failure
+unique_activity_types,F4_diversity_regularity,56,-0.03571356528581605,0.4479617061714515,False,discordant marginal directions: retain nonlinear/correlated-feature caveat,failure
+clicks_per_active_day,F2_volume,28,-0.010929839182280509,-0.17878221814210166,True,descriptive sign agreement only,failure
+clicks_per_active_day,F2_volume,56,0.013713316254319327,0.16368759169805708,True,descriptive sign agreement only,failure
+daily_click_std,F4_diversity_regularity,28,-0.027290089608410395,-0.8100377536767257,True,descriptive sign agreement only,failure
+daily_click_std,F4_diversity_regularity,56,-0.02709366574458359,-0.622153881877401,True,descriptive sign agreement only,failure
+inactivity_gap,F4_diversity_regularity,28,0.10574506871628285,0.9274984994542251,True,descriptive sign agreement only,failure
+inactivity_gap,F4_diversity_regularity,56,0.2375141995500875,0.6989122445449845,True,descriptive sign agreement only,failure
+recent7_clicks,F3_temporal,28,-0.04129636943229434,-0.887131524072009,True,descriptive sign agreement only,failure
+recent7_clicks,F3_temporal,56,-0.061782130151313036,-0.8374791808654016,True,descriptive sign agreement only,failure
+previous7_clicks,F3_temporal,28,-0.03532709035550492,-0.9151878558967557,True,descriptive sign agreement only,failure
+previous7_clicks,F3_temporal,56,-0.053232669243434984,-0.9537948418911251,True,descriptive sign agreement only,failure
+engagement_change,F3_temporal,28,0.009514681603443653,-0.12369975510995905,False,discordant marginal directions: retain nonlinear/correlated-feature caveat,failure
+engagement_change,F3_temporal,56,0.00974560555408399,0.6016978313217126,True,descriptive sign agreement only,failure
+engagement_slope,F3_temporal,28,0.005427931808943361,0.6642105715716552,True,descriptive sign agreement only,failure
+engagement_slope,F3_temporal,56,-0.02531501790124672,-0.8318410462538618,True,descriptive sign agreement only,failure
+activity_entropy,F4_diversity_regularity,28,-0.02055149924198104,0.7668701344908146,False,discordant marginal directions: retain nonlinear/correlated-feature caveat,failure
+activity_entropy,F4_diversity_regularity,56,-0.009374005679287273,0.8979465072042805,False,discordant marginal directions: retain nonlinear/correlated-feature caveat,failure
+num_of_prev_attempts,F1_history,28,0.07499203118660416,0.6161837948303774,True,descriptive sign agreement only,failure
+num_of_prev_attempts,F1_history,56,0.09915549438347485,0.6152944373145828,True,descriptive sign agreement only,failure
+studied_credits,F1_history,28,0.030158814157017735,0.4679540597490502,True,descriptive sign agreement only,failure
+studied_credits,F1_history,56,0.05227724533311534,0.5000936546927565,True,descriptive sign agreement only,failure
+registration_lead_time,F1_history,28,-0.017032966360832336,-0.7591158590627587,True,descriptive sign agreement only,failure
+registration_lead_time,F1_history,56,-0.024071418469086447,-0.867782761562612,True,descriptive sign agreement only,failure
+total_clicks,F2_volume,28,-0.013645325768582092,-0.9500478619112647,True,descriptive sign agreement only,withdrawal
+active_days,F2_volume,28,-0.020054519965837493,-0.9269391202502748,True,descriptive sign agreement only,withdrawal
+active_ratio,F2_volume,28,-0.020066443376016825,-0.9548674428565659,True,descriptive sign agreement only,withdrawal
+unique_sites,F4_diversity_regularity,28,-0.0035677544048519166,0.851229708368549,False,discordant marginal directions: retain nonlinear/correlated-feature caveat,withdrawal
+unique_activity_types,F4_diversity_regularity,28,-0.003858659516026608,0.5900123153476374,False,discordant marginal directions: retain nonlinear/correlated-feature caveat,withdrawal
+clicks_per_active_day,F2_volume,28,-0.005997300275175628,-0.6092995461267877,True,descriptive sign agreement only,withdrawal
+daily_click_std,F4_diversity_regularity,28,-0.00787895657705297,-0.7926097682830712,True,descriptive sign agreement only,withdrawal
+inactivity_gap,F4_diversity_regularity,28,0.018261973181550872,0.9080583068104919,True,descriptive sign agreement only,withdrawal
+recent7_clicks,F3_temporal,28,-0.008748717742436615,-0.6099920279013613,True,descriptive sign agreement only,withdrawal
+previous7_clicks,F3_temporal,28,-0.012237737918726848,-0.6846973057463809,True,descriptive sign agreement only,withdrawal
+engagement_change,F3_temporal,28,0.0036640826551892687,0.6873906333080239,True,descriptive sign agreement only,withdrawal
+engagement_slope,F3_temporal,28,0.003326579863045214,0.9203677159155407,True,descriptive sign agreement only,withdrawal
+activity_entropy,F4_diversity_regularity,28,-0.001042207838940426,0.8831526473945562,False,discordant marginal directions: retain nonlinear/correlated-feature caveat,withdrawal
+num_of_prev_attempts,F1_history,28,0.00904736995301548,0.6109930578865695,True,descriptive sign agreement only,withdrawal
+studied_credits,F1_history,28,0.02868371625451221,0.7610662932302027,True,descriptive sign agreement only,withdrawal
+registration_lead_time,F1_history,28,0.002340788864113726,0.49098800580976876,True,descriptive sign agreement only,withdrawal

@@ -1,0 +1,117 @@
+[
+  {
+    "visible_file": "code/e1_model_and_feature_engine.py",
+    "original_relative_path": "experiment1_day28/run_experiment.py",
+    "sha256": "53f2830ee78db92e22f45493e9b65c541e6924bb5bdc3861f5048b20d60ad99e"
+  },
+  {
+    "visible_file": "code/e1_uci_audit.py",
+    "original_relative_path": "experiment1_day28/check_uci.py",
+    "sha256": "993e786a4dd38a9e0bf11cce0f4f101066fd5ce46d37613192586acea6987e13"
+  },
+  {
+    "visible_file": "code/e1_independent_audit.py",
+    "original_relative_path": "experiment1_day28/audit_pipeline.py",
+    "sha256": "ea62314c6dad77476a650248dfe46f9236a8214e64e5cb1f0bfff681768721fb"
+  },
+  {
+    "visible_file": "code/e2_formulations.py",
+    "original_relative_path": "E2_day28_formulation_v1.0/run_e2.py",
+    "sha256": "a5843a162c226dbd42e494fc7637d4217e6d049ba32f0d2c0de6b54d28e02e92"
+  },
+  {
+    "visible_file": "code/e2_audit.py",
+    "original_relative_path": "E2_day28_formulation_v1.0/audit_e2.py",
+    "sha256": "ba60ed22eaa8737102d4497b8a9cb06b626106b243f13b98e19a1b1faf859067"
+  },
+  {
+    "visible_file": "code/e3_horizons.py",
+    "original_relative_path": "E3_oulad_multihorizon_v1.0/run_e3.py",
+    "sha256": "738321339e7d2b173a9b1fec4da1f7c76150b8080e8beb6312b5cac9e082b9eb"
+  },
+  {
+    "visible_file": "code/e3_audit.py",
+    "original_relative_path": "E3_oulad_multihorizon_v1.0/audit_e3.py",
+    "sha256": "c6472b7caabec689b747083a90b3a4fbaa3fd4ce3efe3862b80bb5170ddde8db"
+  },
+  {
+    "visible_file": "code/e4a_lomo.py",
+    "original_relative_path": "E4A_day28_student_disjoint_LOMO_v1.0/run_e4a.py",
+    "sha256": "245c29c525465131ad5992007fadb423d1e325e66d3de24be239702506ed2751"
+  },
+  {
+    "visible_file": "code/e4a_audit.py",
+    "original_relative_path": "E4A_day28_student_disjoint_LOMO_v1.0/audit_e4a.py",
+    "sha256": "22b5e30f62f6022a02e55f5993041364a55f407b0c9da276094658b850bbe645"
+  },
+  {
+    "visible_file": "code/e4ac_calibration.py",
+    "original_relative_path": "E4A_C_source_only_calibration_v1.0/run_calibration.py",
+    "sha256": "ea607d3d1bf8759721b19e9612a0a668bba6face3b020b789fa9eca8a42b6162"
+  },
+  {
+    "visible_file": "code/e4b_lomo.py",
+    "original_relative_path": "E4B_day56_LOMO_secondary_v1.0/run_e4b.py",
+    "sha256": "74ccffa4f34524bb362ef949a5fce0b78035ee847149df87c9c18fbcb3941c39"
+  },
+  {
+    "visible_file": "code/e4b_compare.py",
+    "original_relative_path": "E4B_day56_LOMO_secondary_v1.0/compare_horizons.py",
+    "sha256": "b4388a12f048dc3690c7564cc9b7c0eab332ef7ec4633b723044a19e7f9cd170"
+  },
+  {
+    "visible_file": "code/e4t_e5_training_engine.py",
+    "original_relative_path": "E4T_OULAD_temporal_generalization_v1.0/run.py",
+    "sha256": "7fdc6ba2111bf7e7ca8082f545d92a53ddfc87f64f7d3a67079aa89c23ce9615"
+  },
+  {
+    "visible_file": "code/e4t_e5_analysis.py",
+    "original_relative_path": "E4T_OULAD_temporal_generalization_v1.0/analyze.py",
+    "sha256": "3e25a8e0282794aab33efee03d4bed1d3ad49a0f3d94bba0eb1d596de4ae1457"
+  },
+  {
+    "visible_file": "code/e4t_e5_audit.py",
+    "original_relative_path": "E4T_OULAD_temporal_generalization_v1.0/audit.py",
+    "sha256": "72dce297f3ac32156573bdc82f72ea045a4ee42b959627f92a5cf72267b435e6"
+  },
+  {
+    "visible_file": "code/e6_common.py",
+    "original_relative_path": "E6A_simple_ensemble_gate_v1.0/e6_common.py",
+    "sha256": "d6c809d685908f85640c9a3999d4dfd7545cbc1e00db9ad2cda0a587f4d6f54b"
+  },
+  {
+    "visible_file": "code/e6a_gate.py",
+    "original_relative_path": "E6A_simple_ensemble_gate_v1.0/run.py",
+    "sha256": "b504e5229536374ea8b7b91d2ad202a07e0fa189d36b846f7d040f419fa04063"
+  },
+  {
+    "visible_file": "code/e6c_calibration.py",
+    "original_relative_path": "E6C_probability_transportability_v1.0/run.py",
+    "sha256": "73d5be88399990d304fe5c4c47f6aeefcef40081dfe5839d00076d2cbbef26bc"
+  },
+  {
+    "visible_file": "code/e7_explanation.py",
+    "original_relative_path": "E7_interpretation_v1.0/run.py",
+    "sha256": "5afe8bdd6fd631ba8150e84e0983f371b176a79874259dcf848f0d6641ae30ff"
+  },
+  {
+    "visible_file": "code/e8_ablation.py",
+    "original_relative_path": "E8_OULAD_grouped_ablation_v1.0/run.py",
+    "sha256": "b4fbb4c80e5736d001a35a1745410280658a1d34df6da00acf6e3b97380ecc8d"
+  },
+  {
+    "visible_file": "code/e6_e8_audit.py",
+    "original_relative_path": "E9_final_evidence_v1.0/audit.py",
+    "sha256": "fb8cf2db40457ffdfbb9cd332db2a7c959ed39baf98b2d6058c514c6886b50b0"
+  },
+  {
+    "visible_file": "code/raw_oulad_reproduction.py",
+    "original_relative_path": "EXPERIMENTS_FROZEN_v1.0/reproduce_raw.py",
+    "sha256": "e5aaf8c8ee873f42d4f5e5fbe5d214ce6d54110a876f125681e4a2f4678e2e68"
+  },
+  {
+    "visible_file": "code/final_metric_verification.py",
+    "original_relative_path": "EXPERIMENTS_FROZEN_v1.0/verify_results.py",
+    "sha256": "1fd5b7c8080cd6d85c20b3c14809fbb93ba276fd04de3a99ced83e5dc66139a5"
+  }
+]

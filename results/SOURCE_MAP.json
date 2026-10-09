@@ -1,0 +1,50 @@
+{
+  "all_recomputed_metrics.csv": {
+    "original_relative_path": "EXPERIMENTS_FROZEN_v1.0/all_recomputed_metrics.csv",
+    "sha256": "505feac8eda180af5ec3822e41b245d508aeba5ea1572c3f5398311a188aabe4"
+  },
+  "Results_Table1_selected_performance.csv": {
+    "original_relative_path": "EXPERIMENTS_FROZEN_v1.0/Results_Table1_selected_performance.csv",
+    "sha256": "c638cd73d3d4a2e7e8ff20fe3ccbea28255d8513cb68adbfd479fa2df261bd7d"
+  },
+  "Results_Table2_contrasts.csv": {
+    "original_relative_path": "EXPERIMENTS_FROZEN_v1.0/Results_Table2_contrasts.csv",
+    "sha256": "707cacdf075c44d93ec4269b923bf8c1e08473813068cf7c0bc2d3c4e96342e5"
+  },
+  "Results_Table3_group_consistency.csv": {
+    "original_relative_path": "EXPERIMENTS_FROZEN_v1.0/Results_Table3_group_consistency.csv",
+    "sha256": "e7489304cf39ed857f1b8cd0e99dd8bf3f1c7e0f53260ec0c3d71e973fa8cde5"
+  },
+  "Results_Table4_frozen_concept_mapping.csv": {
+    "original_relative_path": "EXPERIMENTS_FROZEN_v1.0/Results_Table4_frozen_concept_mapping.csv",
+    "sha256": "014d4806fde5dd5df354112f833a2f0d2eec90410fce6c5927d9e94822772bca"
+  },
+  "claim_registry.csv": {
+    "original_relative_path": "EXPERIMENTS_FROZEN_v1.0/claim_registry.csv",
+    "sha256": "99b553e4df0dce9b977a2e7c86447863cba7a2dbde89f41d6065718a41823cdd"
+  },
+  "interpretation_direction_audit.csv": {
+    "original_relative_path": "EXPERIMENTS_FROZEN_v1.0/interpretation_direction_audit.csv",
+    "sha256": "17ce177ed08ae61b1d8cd173c122de02d38808b5abd0d1485dd66e61d3d96d01"
+  },
+  "metric_verification.json": {
+    "original_relative_path": "EXPERIMENTS_FROZEN_v1.0/metric_verification.json",
+    "sha256": "485f3ffdb54f8628f42d59d23ed62c63c57b7c7391e765800c864e2c6ac29fa7"
+  },
+  "E6A_source_gate_decision.json": {
+    "original_relative_path": "E6A_simple_ensemble_gate_v1.0/source_gate_decision.json",
+    "sha256": "4675c0722bcd09e1e4c869e3fa04448a0a7c0c84a825e83738a28295cfcf4ecf"
+  },
+  "E6C_paired_calibration_changes.csv": {
+    "original_relative_path": "E6C_probability_transportability_v1.0/paired_calibration_changes.csv",
+    "sha256": "c4d21ec3ec21b0063c4521d00828e2be9322f68c0da12422660a1bbfa901d485"
+  },
+  "E8_fixed_horizon_ablation.csv": {
+    "original_relative_path": "E8_OULAD_grouped_ablation_v1.0/fixed_horizon_ablation.csv",
+    "sha256": "125927d2552a239ea12e5bd78d9f88fd718b39099d683db9caaf51d61e17aec8"
+  },
+  "E8_information_gain_ablation.csv": {
+    "original_relative_path": "E8_OULAD_grouped_ablation_v1.0/information_gain_ablation.csv",
+    "sha256": "d73f02bd15f22f6bd7656ba7e820c0b966a70ac8e4061dee47e9e4a90a1029b4"
+  }
+}

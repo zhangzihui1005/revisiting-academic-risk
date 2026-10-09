@@ -1,0 +1,46 @@
+dataset,feature,E7_concept,manuscript_concept,measured,scope,limitation
+OULAD,active_days,participation,engagement,True,OULAD frozen 16 features,concept-level replication; no feature transfer
+OULAD,active_ratio,participation,engagement,True,OULAD frozen 16 features,concept-level replication; no feature transfer
+OULAD,activity_entropy,participation,engagement,True,OULAD frozen 16 features,concept-level replication; no feature transfer
+OULAD,clicks_per_active_day,participation,engagement,True,OULAD frozen 16 features,concept-level replication; no feature transfer
+OULAD,daily_click_std,participation,engagement,True,OULAD frozen 16 features,concept-level replication; no feature transfer
+OULAD,engagement_change,participation,engagement,True,OULAD frozen 16 features,concept-level replication; no feature transfer
+OULAD,engagement_slope,participation,engagement,True,OULAD frozen 16 features,concept-level replication; no feature transfer
+OULAD,inactivity_gap,participation,engagement,True,OULAD frozen 16 features,concept-level replication; no feature transfer
+OULAD,num_of_prev_attempts,prior_background,prior history,True,OULAD frozen 16 features,concept-level replication; no feature transfer
+OULAD,previous7_clicks,participation,engagement,True,OULAD frozen 16 features,concept-level replication; no feature transfer
+OULAD,recent7_clicks,participation,engagement,True,OULAD frozen 16 features,concept-level replication; no feature transfer
+OULAD,registration_lead_time,administrative_context,administrative context,True,OULAD frozen 16 features,concept-level replication; no feature transfer
+OULAD,studied_credits,administrative_context,administrative context,True,OULAD frozen 16 features,concept-level replication; no feature transfer
+OULAD,total_clicks,participation,engagement,True,OULAD frozen 16 features,concept-level replication; no feature transfer
+OULAD,unique_activity_types,participation,engagement,True,OULAD frozen 16 features,concept-level replication; no feature transfer
+OULAD,unique_sites,participation,engagement,True,OULAD frozen 16 features,concept-level replication; no feature transfer
+UCI,Admission grade,prior_background,prior history,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Age at enrollment,administrative_context,administrative context,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Application mode,administrative_context,administrative context,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Application order,administrative_context,administrative context,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Course,administrative_context,administrative context,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Curricular units 1st sem (approved),academic_progress,progress,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Curricular units 1st sem (credited),academic_progress,progress,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Curricular units 1st sem (enrolled),participation,engagement,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Curricular units 1st sem (evaluations),participation,engagement,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Curricular units 1st sem (grade),academic_performance,performance,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Curricular units 1st sem (without evaluations),participation,engagement,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Daytime/evening attendance,administrative_context,administrative context,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Displaced,administrative_context,administrative context,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Educational special needs,administrative_context,administrative context,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Father's occupation,administrative_context,administrative context,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Father's qualification,administrative_context,administrative context,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,GDP,administrative_context,administrative context,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Gender,administrative_context,administrative context,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Inflation rate,administrative_context,administrative context,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,International,administrative_context,administrative context,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Marital status,administrative_context,administrative context,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Mother's occupation,administrative_context,administrative context,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Mother's qualification,administrative_context,administrative context,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Nacionality,administrative_context,administrative context,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Previous qualification,prior_background,prior history,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Previous qualification (grade),prior_background,prior history,True,UCI H1 27 features,concept-level replication; no feature transfer
+UCI,Unemployment rate,administrative_context,administrative context,True,UCI H1 27 features,concept-level replication; no feature transfer
+OULAD,NOT MEASURED,academic_progress,progress,False,no assessment/grade features in frozen OULAD inputs,"missing, not zero importance"
+OULAD,NOT MEASURED,academic_performance,performance,False,no assessment/grade features in frozen OULAD inputs,"missing, not zero importance"
