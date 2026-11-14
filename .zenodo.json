@@ -1,0 +1,34 @@
+{
+  "title": "Temporal gains in academic-risk prediction depend on outcome definitions and evaluation conditions: reproduction code and evidence",
+  "version": "5.0",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "mit",
+  "language": "eng",
+  "publication_date": "2026-11-14",
+  "creators": [
+    {
+      "name": "Zhang, Zihui",
+      "affiliation": "Sias University; INTI International University"
+    },
+    {
+      "name": "Hu, Yating",
+      "affiliation": "Henan College of Transportation",
+      "orcid": "0009-0007-4868-5183"
+    },
+    {
+      "name": "Miao, Shaowei",
+      "affiliation": "Zhongyuan University of Science and Technology; INTI International University",
+      "orcid": "0009-0006-7976-9390"
+    }
+  ],
+  "description": "Reproduction source and frozen evidence for the academic-risk prediction study. Includes historical E1\u2013E14 verification and selected replays, plus reviewer-revision complete-risk-set temporal controls, same-family representation comparisons, nested development stability, probability-calibration diagnostics and screening coverage. Provides raw-OULAD reconstruction of the new controls, selected LOMO LR replay, and archived-input calibration diagnostics. Authors code is MIT; derived data retain the original datasets CC BY 4.0 attribution. Raw logs, manuscript documents and reviewer reports are omitted. The later analyses reuse previously inspected data and are exploratory; calendar proxies do not establish real-time label availability. See README for executable scope, exclusions and commands.",
+  "keywords": [
+    "learning analytics",
+    "academic risk",
+    "OULAD",
+    "reproducibility",
+    "calibration",
+    "temporal prediction"
+  ]
+}

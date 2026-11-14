@@ -1,5 +1,66 @@
 # Temporal gains in academic-risk prediction
 
+Reproduction code and frozen evidence, **v5.0 (2026-11-14)**, for *Temporal gains in academic-risk prediction depend on outcome definitions and evaluation conditions*.
+
+This version adds the reviewer-revision analyses to the unchanged historical E1–E14 scientific evidence. The original commands remain available. The revision extension contains complete-risk-set year transfer and calendar-proxy controls, same-family three-feature comparisons, nested development stability, intercept-only and Platt calibration diagnostics, capacity/lead-time summaries, and the numerical audit of the historical LR refit.
+
+## Start here
+
+Use Python 3.12 and an isolated environment:
+
+```sh
+python -m venv .venv
+# Windows: .venv\Scripts\activate
+# Linux/macOS: source .venv/bin/activate
+python -m pip install -r requirements-lock.txt
+python reproduce.py check
+python reviewer.py verify --workdir _reviewer
+```
+
+`reviewer.py` joins the `reviewer_v5.part*` transport files, verifies SHA256, and restores human-readable source and frozen evidence. It recomputes metrics and intervals from **existing predictions and saved draws**, checks nested split separation, and performs no model fitting or new bootstrap. Use `restore` instead of `verify` to unpack with Python's standard library only. Do not edit the extracted frozen evidence; use a separate destination for new runs.
+
+The restored `_reviewer/` tree contains `code/` (nine readable Python files), `tables/` (21 full-precision CSVs), `reference_calibration/`, `fullrisk/`, `stability/`, `calibration/`, `inputs/`, `PROTOCOL.md` and `SOURCE_INDEX.json`. Individual prediction rows, locked parameters, source search results, membership IDs, random states and saved draws are included. Raw interaction logs and model binaries are omitted. Historical source audits remain clearly dated historical records.
+
+## Rebuild the revision controls from raw OULAD
+
+Obtain the original public OULAD ZIP from the [official UCI record](https://archive.ics.uci.edu/dataset/349/open+university+learning+analytics+dataset). The launcher enforces SHA256 `f2ed1902616c1fe8d2824d872c0b7d2d72be435bf0124d077044fe4be2c6d3e4`.
+
+```sh
+python _reviewer/code/reproduce_core.py --raw "/path/to/OULAD.zip" --destination _new_run --stage all
+python _reviewer/code/reproduce_calibration_core.py --prepared-root _new_run --destination _new_lomo
+python _reviewer/code/reproduce_calibration_diagnostics.py --destination _new_diagnostics
+```
+
+These are **explicit computational runs**. The first rebuilds Day28/56 features and reruns the new complete-risk-set and nested-development controls; `--stage prepare`, `fullrisk`, and `stability` can be run separately. The second refits the fourteen historical selected LOMO LR workflows and reconstructs source OOF/calibration from rebuilt features; it does not repeat all historical hyperparameter searches. The third recomputes diagnostics and bootstrap from bundled historical OOF/target probabilities. Use fresh output destinations. Exact results can depend on library and platform versions; compare to the frozen tables and record deviations.
+
+Historical saved-result verification and fixed-fit replay are still available with `reproduce.py` and `revision.py` (see below). This is not a one-command reconstruction of every historical search. No unperformed replay is claimed.
+
+## Map to the revised article
+
+| Revised evidence | Restored data / source |
+| --- | --- |
+| Main complete-risk-set results; Tables S33, S35–S36 | `tables/fullrisk_temporal_contrasts.csv`, `fullrisk_capacity_metrics.csv`, `representation_contrasts.csv`; `code/fullrisk.py` |
+| Screening coverage and withdrawal lead time | `tables/waiting_time_coverage.csv`, `KEY_capacity_and_leadtime.csv` |
+| Nested development stability | `tables/nested_development_*.csv`; `code/stability.py` |
+| Calibration and simple probability baselines | `tables/calibration_*.csv`, `historical_class_weight_audit.csv`; `code/calibration_analysis.py` |
+| Reviewer numerical checks | `tables/R1_*.csv`; frozen audit records |
+| Calendar assumptions | `tables/calendar_date_bounds_and_assumptions.csv`; `PROTOCOL.md` |
+| Historical E1–E14 and original figures | Existing `results/`, `docs/`, `evidence/`; prior commands below |
+
+The numbered historical crosswalk in `docs/MANUSCRIPT_CROSSWALK.csv` describes the pre-reviewer manuscript and is not the numbering of the November revision. The new results are exploratory analyses of previously inspected data. Historical E11 is internal-only; the new complete-risk-set year-transfer analyses are separate. Calendar proxies do not verify actual label availability. Conditional failure and complete-risk-set Fail target different populations. Intervals are pointwise and conditional on fitted models, and overlapping development folds are not independent replications. There is no prospective intervention test.
+
+## License and citation
+
+Authors' original code and accompanying software documentation are licensed under **MIT** (`LICENSE`). Original datasets and derived data retain **CC BY 4.0** attribution requirements; see `LICENSING.md`. Manuscript files, referee reports, passwords, and raw interaction-log archives are not part of this release.
+
+Citation metadata are in `CITATION.cff` and `.zenodo.json`. Cite the version-specific Zenodo DOI displayed on the release record once it has been archived. The article DOI is not yet available and is not invented here.
+
+## Historical v4.0 interface reference
+
+The text below documents the prior release, retained for command compatibility. Its references to "current manuscript" and numbering are historical; the v5.0 scope above governs the reviewer-revision extension. The original no-software-license statement below is superseded by the MIT license granted in v5.0.
+
+# Temporal gains in academic-risk prediction
+
 Reviewer reproduction package **v4.0**, aligned with the revised manuscript:
 **Temporal gains in academic-risk prediction depend on outcome definitions and evaluation conditions**.
 

@@ -1,0 +1,27 @@
+{
+  "version": "5.0",
+  "archive_sha256": "0ad7d3474ab59745dde270c844c47bbf73722588e0e1b509089a4e9526c8959c",
+  "parts": [
+    {
+      "name": "reviewer_v5.part01",
+      "bytes": 16777216,
+      "sha256": "fb3e64ce7616a84c7e67e7411da0fb7c5fa32f5c5e102ee190ce4f90653faa50"
+    },
+    {
+      "name": "reviewer_v5.part02",
+      "bytes": 16777216,
+      "sha256": "deaa447d8c3fe18cf3812a8a42d80877b664bab1315d82df66d6a3aff30b6e52"
+    },
+    {
+      "name": "reviewer_v5.part03",
+      "bytes": 16777216,
+      "sha256": "5f5ccb9ade9a16d57834633062f0b9be4330461b91d65e0a63f52911c3c336ef"
+    },
+    {
+      "name": "reviewer_v5.part04",
+      "bytes": 5773396,
+      "sha256": "b1e47b15ba14319604be38e4f09badf0317ca28ad38bb51fa7c2d504c8a3dcde"
+    }
+  ],
+  "payload_files": 783
+}

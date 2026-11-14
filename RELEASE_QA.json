@@ -1,0 +1,18 @@
+{
+  "release": "5.0",
+  "status": "PASS",
+  "historical_scientific_files_preserved": 70,
+  "reviewer_payload_files": 782,
+  "fullrisk_metric_rows": 108,
+  "paired_contrasts": 42,
+  "saved_draws_checked": 84000,
+  "nested_folds": 5,
+  "nested_search_rows": 300,
+  "calibration_metric_rows": 102,
+  "calibration_contrasts": 40,
+  "new_model_fits_during_release_QA": 0,
+  "new_bootstrap_draws_during_release_QA": 0,
+  "scope": "Frozen-result recalculation, hash verification, nested membership checks and code syntax. Full training is not repeated for this release.",
+  "python": "3.12.14",
+  "historical_verification": "PASS: 83 core prediction rows; 79 paired horizon contrasts; 38 fixed-fit metric rows; 8 E14 contrasts; 4 S32 saved-draw contrasts"
+}
