@@ -1,1 +1,3 @@
-v5.0：代码仓库文件总数少于100个，每个运输分片不超过16 MiB。解压外层发布ZIP后上传仓库根目录内容；不要上传外层ZIP，不要改名或省略 reviewer_v5.part* / evidence 分片。新版 reviewer.py 可还原返修代码、结果和逐条证据。使用方法见 README.md。
+v5.0 已通过 Git 直接推送并正式发布，无需再通过网页重复上传。
+固定版本 DOI：https://doi.org/10.5281/zenodo.24215762
+下载对应 GitHub release 或 Zenodo 归档后运行 README 中的校验命令。仓库共97个文件；请保留全部运输分片。网页批量提交仍可能被服务器拒绝，更新仓库建议使用 Git。

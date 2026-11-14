@@ -1,5 +1,7 @@
 # Temporal gains in academic-risk prediction
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24215762.svg)](https://doi.org/10.5281/zenodo.24215762)
+
 Reproduction code and frozen evidence, **v5.0 (2026-11-14)**, for *Temporal gains in academic-risk prediction depend on outcome definitions and evaluation conditions*.
 
 This version adds the reviewer-revision analyses to the unchanged historical E1–E14 scientific evidence. The original commands remain available. The revision extension contains complete-risk-set year transfer and calendar-proxy controls, same-family three-feature comparisons, nested development stability, intercept-only and Platt calibration diagnostics, capacity/lead-time summaries, and the numerical audit of the historical LR refit.
@@ -53,7 +55,7 @@ The numbered historical crosswalk in `docs/MANUSCRIPT_CROSSWALK.csv` describes t
 
 Authors' original code and accompanying software documentation are licensed under **MIT** (`LICENSE`). Original datasets and derived data retain **CC BY 4.0** attribution requirements; see `LICENSING.md`. Manuscript files, referee reports, passwords, and raw interaction-log archives are not part of this release.
 
-Citation metadata are in `CITATION.cff` and `.zenodo.json`. Cite the version-specific Zenodo DOI displayed on the release record once it has been archived. The article DOI is not yet available and is not invented here.
+Citation metadata are in `CITATION.cff` and `.zenodo.json`. The version-specific DOI is [10.5281/zenodo.24215762](https://doi.org/10.5281/zenodo.24215762). It permanently archives GitHub tag `v5.0` at commit `01a84a3`. This later documentation update adds the DOI link without changing the archived code or evidence. The article DOI is not yet available and is not invented here.
 
 ## Historical v4.0 interface reference
 
