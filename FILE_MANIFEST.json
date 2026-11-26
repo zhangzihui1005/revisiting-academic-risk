@@ -9,11 +9,11 @@
       "lf_sha256": "5a1f88195a10c841d85c1b708bb7f43cd5eb4758ec9a26bacf5e87b8a63a4d0b"
     },
     "CITATION.cff": {
-      "bytes": 650,
-      "sha256": "a32dd035c8846e78d40d874d243961a46168f184a950aafcab4f403986fa912f",
+      "bytes": 681,
+      "sha256": "bb1cbca9645848fef26ebab793b57fbf38d21ab31c95315ba9d0542d65364671",
       "comparison": "utf8-lf",
-      "lf_bytes": 650,
-      "lf_sha256": "a32dd035c8846e78d40d874d243961a46168f184a950aafcab4f403986fa912f"
+      "lf_bytes": 681,
+      "lf_sha256": "bb1cbca9645848fef26ebab793b57fbf38d21ab31c95315ba9d0542d65364671"
     },
     "code/e1_independent_audit.py": {
       "bytes": 4211,
@@ -388,11 +388,11 @@
       "lf_sha256": "8d6aca3f1540a1d66a7a843e610f5e9c36e8d60d291719ec57ac85d4113403a9"
     },
     "README.md": {
-      "bytes": 11248,
-      "sha256": "53b5b64c1740daec7d9ed6f295c203170ae42d24a1790e6e940383c190655aad",
+      "bytes": 11343,
+      "sha256": "1b5423cf06461134721c5ac3b7dafb860007a3634be14f10ebda10c0a808efd4",
       "comparison": "utf8-lf",
-      "lf_bytes": 11248,
-      "lf_sha256": "53b5b64c1740daec7d9ed6f295c203170ae42d24a1790e6e940383c190655aad"
+      "lf_bytes": 11343,
+      "lf_sha256": "1b5423cf06461134721c5ac3b7dafb860007a3634be14f10ebda10c0a808efd4"
     },
     "RELEASE_QA.json": {
       "bytes": 769,

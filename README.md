@@ -1,6 +1,6 @@
 # Temporal gains in academic-risk prediction
 
-Version 5.1 retains the [v5.0 historical archive](https://doi.org/10.5281/zenodo.24215762) and adds the early-withdrawal training sensitivity. Download and extract `round2.zip` to `round2/`. Its README lists commands for the two CatBoost refits, an independent bootstrap replay and Figure 2. The primary estimates are in `round2/results/tables/S45A_common_target_gains.csv` and `S45B_dynamic_day28.csv`.
+The version-specific DOI is [10.5281/zenodo.24548788](https://doi.org/10.5281/zenodo.24548788). Version 5.1 retains the [v5.0 historical archive](https://doi.org/10.5281/zenodo.24215762) and adds the early-withdrawal training sensitivity. Download and extract `round2.zip` to `round2/`. Its README lists commands for the two CatBoost refits, an independent bootstrap replay and Figure 2. The primary estimates are in `round2/results/tables/S45A_common_target_gains.csv` and `S45B_dynamic_day28.csv`.
 
 ## Start here
 
@@ -51,7 +51,7 @@ The numbered historical crosswalk in `docs/MANUSCRIPT_CROSSWALK.csv` describes t
 
 Authors' original code and accompanying software documentation are licensed under **MIT** (`LICENSE`). Original datasets and derived data retain **CC BY 4.0** attribution requirements; see `LICENSING.md`. Manuscript files, referee reports, passwords, and raw interaction-log archives are not part of this release.
 
-Citation metadata are in `CITATION.cff` and `.zenodo.json`. The version-specific DOI is [10.5281/zenodo.24215762](https://doi.org/10.5281/zenodo.24215762). It permanently archives GitHub tag `v5.0` at commit `01a84a3`. This later documentation update adds the DOI link without changing the archived code or evidence. The article DOI is not yet available and is not invented here.
+Citation metadata are in `CITATION.cff` and `.zenodo.json`. The historical v5.0 DOI is [10.5281/zenodo.24215762](https://doi.org/10.5281/zenodo.24215762). It permanently archives GitHub tag `v5.0` at commit `01a84a3`. This later documentation update adds the DOI link without changing the archived code or evidence. The article DOI is not yet available and is not invented here.
 
 ## Historical v4.0 interface reference
 
