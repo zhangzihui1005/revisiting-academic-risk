@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "Please cite this software version when reusing the code or reproduction evidence."
 type: software
 title: "Temporal gains in academic-risk prediction depend on outcome definitions and evaluation conditions: reproduction code and evidence"
-version: "5.0"
-date-released: 2026-11-14
+version: "5.1"
+date-released: 2026-11-26
 authors:
   - family-names: Zhang
     given-names: Zihui
@@ -15,4 +15,3 @@ authors:
     orcid: "https://orcid.org/0009-0006-7976-9390"
 repository-code: "https://github.com/zhangzihui1005/revisiting-academic-risk"
 license: MIT
-doi: "10.5281/zenodo.24215762"

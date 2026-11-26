@@ -1,19 +1,19 @@
 {
-  "release": "5.0",
+  "release": "5.1",
   "files": {
     ".zenodo.json": {
-      "bytes": 1725,
-      "sha256": "7e5dcbd10aec1a81a7fd76b45a157712465597f34fa82baafc90a02382d053f8",
+      "bytes": 1893,
+      "sha256": "5a1f88195a10c841d85c1b708bb7f43cd5eb4758ec9a26bacf5e87b8a63a4d0b",
       "comparison": "utf8-lf",
-      "lf_bytes": 1725,
-      "lf_sha256": "7e5dcbd10aec1a81a7fd76b45a157712465597f34fa82baafc90a02382d053f8"
+      "lf_bytes": 1893,
+      "lf_sha256": "5a1f88195a10c841d85c1b708bb7f43cd5eb4758ec9a26bacf5e87b8a63a4d0b"
     },
     "CITATION.cff": {
-      "bytes": 681,
-      "sha256": "77bb5f03c6318d93d5866e6baa8e2abd3fdb34c0fdb5074f82311e588793440e",
+      "bytes": 650,
+      "sha256": "a32dd035c8846e78d40d874d243961a46168f184a950aafcab4f403986fa912f",
       "comparison": "utf8-lf",
-      "lf_bytes": 681,
-      "lf_sha256": "77bb5f03c6318d93d5866e6baa8e2abd3fdb34c0fdb5074f82311e588793440e"
+      "lf_bytes": 650,
+      "lf_sha256": "a32dd035c8846e78d40d874d243961a46168f184a950aafcab4f403986fa912f"
     },
     "code/e1_independent_audit.py": {
       "bytes": 4211,
@@ -388,11 +388,11 @@
       "lf_sha256": "8d6aca3f1540a1d66a7a843e610f5e9c36e8d60d291719ec57ac85d4113403a9"
     },
     "README.md": {
-      "bytes": 11563,
-      "sha256": "04e9f54f26a70805f128e69faac6c3912c638330c8f9c429a5d96559aa16a9bb",
+      "bytes": 11248,
+      "sha256": "53b5b64c1740daec7d9ed6f295c203170ae42d24a1790e6e940383c190655aad",
       "comparison": "utf8-lf",
-      "lf_bytes": 11563,
-      "lf_sha256": "04e9f54f26a70805f128e69faac6c3912c638330c8f9c429a5d96559aa16a9bb"
+      "lf_bytes": 11248,
+      "lf_sha256": "53b5b64c1740daec7d9ed6f295c203170ae42d24a1790e6e940383c190655aad"
     },
     "RELEASE_QA.json": {
       "bytes": 769,
@@ -628,11 +628,16 @@
       "lf_sha256": "d07e7bd095c3397c8ab9039cd9045434988df65729991da4a5a754d0e6238b27"
     },
     "UPLOAD_GUIDE_CN.txt": {
-      "bytes": 361,
-      "sha256": "01721f89600fa96a1130f027168f045c6a47db18ce4228e240137a61bb29fa83",
+      "bytes": 198,
+      "sha256": "8c177d7c2c978000b2a86d9d8b696906c3595388d84bb4b42f9b73170ab9d9b2",
       "comparison": "utf8-lf",
-      "lf_bytes": 361,
-      "lf_sha256": "01721f89600fa96a1130f027168f045c6a47db18ce4228e240137a61bb29fa83"
+      "lf_bytes": 198,
+      "lf_sha256": "8c177d7c2c978000b2a86d9d8b696906c3595388d84bb4b42f9b73170ab9d9b2"
+    },
+    "round2.zip": {
+      "bytes": 2300694,
+      "sha256": "4b41f9a07a745bfd869b9cb309c8a3251236a3897f4816a52f252071a05944c3",
+      "comparison": "binary"
     }
   }
 }

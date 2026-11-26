@@ -1,3 +1,1 @@
-v5.0 已通过 Git 直接推送并正式发布，无需再通过网页重复上传。
-固定版本 DOI：https://doi.org/10.5281/zenodo.24215762
-下载对应 GitHub release 或 Zenodo 归档后运行 README 中的校验命令。仓库共97个文件；请保留全部运输分片。网页批量提交仍可能被服务器拒绝，更新仓库建议使用 Git。
+v5.1 新增早退训练人群敏感性分析。先运行 reviewer.py restore 解包冻结输入，再解压 round2.zip 并按其 README 执行。v5.0 历史版本 DOI 为 10.5281/zenodo.24215762。

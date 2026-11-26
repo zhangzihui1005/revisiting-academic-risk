@@ -1,10 +1,6 @@
 # Temporal gains in academic-risk prediction
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24215762.svg)](https://doi.org/10.5281/zenodo.24215762)
-
-Reproduction code and frozen evidence, **v5.0 (2026-11-14)**, for *Temporal gains in academic-risk prediction depend on outcome definitions and evaluation conditions*.
-
-This version adds the reviewer-revision analyses to the unchanged historical E1–E14 scientific evidence. The original commands remain available. The revision extension contains complete-risk-set year transfer and calendar-proxy controls, same-family three-feature comparisons, nested development stability, intercept-only and Platt calibration diagnostics, capacity/lead-time summaries, and the numerical audit of the historical LR refit.
+Version 5.1 retains the [v5.0 historical archive](https://doi.org/10.5281/zenodo.24215762) and adds the early-withdrawal training sensitivity. Download and extract `round2.zip` to `round2/`. Its README lists commands for the two CatBoost refits, an independent bootstrap replay and Figure 2. The primary estimates are in `round2/results/tables/S45A_common_target_gains.csv` and `S45B_dynamic_day28.csv`.
 
 ## Start here
 
